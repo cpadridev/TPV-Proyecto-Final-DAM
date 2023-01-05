@@ -23,8 +23,6 @@ C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\bin\Debug\MaterialDes
 C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\bin\Debug\Microsoft.Xaml.Behaviors.pdb
 C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\bin\Debug\Microsoft.Xaml.Behaviors.xml
 C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\bin\Debug\NLog.xml
-C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\obj\Debug\tpv.csproj.AssemblyReference.cache
-C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\obj\Debug\tpv.csproj.SuggestedBindingRedirects.cache
 C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\obj\Debug\Frontend\Dialogs\LoginDialog.g.cs
 C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\obj\Debug\MainWindow.g.cs
 C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\obj\Debug\App.g.cs
@@ -40,3 +38,8 @@ C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\obj\Debug\tpv.csproj.
 C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\obj\Debug\tpv.csproj.CopyComplete
 C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\obj\Debug\tpv.exe
 C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\obj\Debug\tpv.pdb
+C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\bin\Debug\MySql.Data.Entity.EF6.dll
+C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\bin\Debug\MySql.Data.dll
+C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\bin\Debug\MySql.Data.Entity.EF6.xml
+C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\bin\Debug\MySql.Data.xml
+C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\obj\Debug\tpv.csproj.AssemblyReference.cache
