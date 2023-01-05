@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\App.xaml
-1219584333
+294011431
 
-11-1224157526
+12-1827330680
 27180074997
-MainWindow.xaml;
+Frontend\Dialogs\LoginDialog.xaml;MainWindow.xaml;
 
-False
+True
 

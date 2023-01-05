@@ -1,0 +1,51 @@
+﻿<mah:MetroWindow x:Class="tpv.Frontend.Dialogs.LoginDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:tpv.Frontend.Dialogs"
+        mc:Ignorable="d"
+        Title="INICIAR SESIÓN" Width="1920" Height="1080" WindowState="Maximized">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#333" Offset="0.5" />
+                <GradientStop Color="#000" Offset="1.0" />
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="INICIAR SESIÓN" HorizontalAlignment="Center" FontSize="48" Margin="0, 30, 0, 50" Foreground="White" />
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Width="260">
+                <Border Margin="10, 0, -35, 0" Width="56" Height="56" Panel.ZIndex="1" Padding="5" BorderThickness="1" Background="#2F9CFA" CornerRadius="30">
+                    <mat:PackIcon Kind="AccountOutline" Width="32" Height="32" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <Border Margin="10, 0, -20, 0" Height="40" Panel.ZIndex="0" Padding="5" BorderThickness="1" CornerRadius="0, 25, 25, 0">
+                    <Border.Background>
+                        <SolidColorBrush Color="White" Opacity="0.3" />
+                    </Border.Background>
+                    <TextBox Width="200" Panel.ZIndex="0" Padding="25, 0, 10, 0" mat:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" BorderBrush="Transparent" mat:HintAssist.Hint="Nombre de Usuario" VerticalContentAlignment="Center" />
+                </Border>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 30, 0, 50" Width="260">
+                <Border Margin="10, 0, -35, 0" Width="56" Height="56" Panel.ZIndex="1" Padding="5" BorderThickness="1" Background="#2F9CFA" CornerRadius="30" Cursor="">
+                    <mat:PackIcon Kind="LockOpenOutline" Width="32" Height="32" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+                <Border Margin="10, 0, -20, 0" Height="40" Panel.ZIndex="0" Padding="5" BorderThickness="1" CornerRadius="0, 25, 25, 0" Cursor="">
+                    <Border.Background>
+                        <SolidColorBrush Color="White" Opacity="0.3" />
+                    </Border.Background>
+                    <PasswordBox Width="200" Panel.ZIndex="0" Padding="25, 0, 10, 0" mat:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" BorderBrush="Transparent" mat:HintAssist.Hint="Contraseña" VerticalContentAlignment="Center" Cursor="" />
+                </Border>
+            </StackPanel>
+            <Button Grid.Row="3" Content="INICIAR SESIÓN" IsDefault="True" Width="250" BorderBrush="Transparent" FontWeight="Bold" Margin="0, 0, 0, 30" Height="40" mat:ButtonAssist.CornerRadius="20" />
+        </Grid>
+    </Grid>
+</mah:MetroWindow>
