@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a35bf123655b4ccc8a0c98e9a9ebc757" Name="Diagram1">
+        <EntityTypeShape EntityType="tpvModel.category" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="tpvModel.customer" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="tpvModel.location" Width="1.5" PointX="3" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="tpvModel.offer" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="tpvModel.permission" Width="1.5" PointX="1.5" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="tpvModel.product" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="tpvModel.role" Width="1.5" PointX="1.5" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="tpvModel.sale" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="tpvModel.sales_details" Width="1.5" PointX="7.5" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="tpvModel.user" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="tpvModel.fk_Product_Category1" ManuallyRouted="false" />
+        <AssociationConnector Association="tpvModel.fk_Sale_Customer1" ManuallyRouted="false" />
+        <AssociationConnector Association="tpvModel.fk_Product_Location1" ManuallyRouted="false" />
+        <AssociationConnector Association="tpvModel.fk_Product_Offer1" ManuallyRouted="false" />
+        <AssociationConnector Association="tpvModel.fk_Sale_has_Product_Product1" ManuallyRouted="false" />
+        <AssociationConnector Association="tpvModel.fk_User_Role1" ManuallyRouted="false" />
+        <AssociationConnector Association="tpvModel.fk_Sale_has_Product_Sale" ManuallyRouted="false" />
+        <AssociationConnector Association="tpvModel.fk_Sale_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="tpvModel.offers_customers" ManuallyRouted="false" />
+        <AssociationConnector Association="tpvModel.permissions_roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
