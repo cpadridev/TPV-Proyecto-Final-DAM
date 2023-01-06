@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="tpvModelStoreContainer" CdmEntityContainer="tpvEntities">
+    <EntitySetMapping Name="category">
+      <EntityTypeMapping TypeName="tpvModel.category">
+        <MappingFragment StoreEntitySet="category">
+          <ScalarProperty Name="idCategory" ColumnName="idCategory" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="customer">
+      <EntityTypeMapping TypeName="tpvModel.customer">
+        <MappingFragment StoreEntitySet="customer">
+          <ScalarProperty Name="idCustomer" ColumnName="idCustomer" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="surnames" ColumnName="surnames" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="address" ColumnName="address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="location">
+      <EntityTypeMapping TypeName="tpvModel.location">
+        <MappingFragment StoreEntitySet="location">
+          <ScalarProperty Name="idLocation" ColumnName="idLocation" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="offer">
+      <EntityTypeMapping TypeName="tpvModel.offer">
+        <MappingFragment StoreEntitySet="offer">
+          <ScalarProperty Name="idOffer" ColumnName="idOffer" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="period" ColumnName="period" />
+          <ScalarProperty Name="file" ColumnName="file" />
+          <ScalarProperty Name="discount" ColumnName="discount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="permission">
+      <EntityTypeMapping TypeName="tpvModel.permission">
+        <MappingFragment StoreEntitySet="permission">
+          <ScalarProperty Name="idPermission" ColumnName="idPermission" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="product">
+      <EntityTypeMapping TypeName="tpvModel.product">
+        <MappingFragment StoreEntitySet="product">
+          <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="idCategory" ColumnName="idCategory" />
+          <ScalarProperty Name="idLocation" ColumnName="idLocation" />
+          <ScalarProperty Name="idOffer" ColumnName="idOffer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="role">
+      <EntityTypeMapping TypeName="tpvModel.role">
+        <MappingFragment StoreEntitySet="role">
+          <ScalarProperty Name="idRole" ColumnName="idRole" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sale">
+      <EntityTypeMapping TypeName="tpvModel.sale">
+        <MappingFragment StoreEntitySet="sale">
+          <ScalarProperty Name="idSale" ColumnName="idSale" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="payment" ColumnName="payment" />
+          <ScalarProperty Name="total" ColumnName="total" />
+          <ScalarProperty Name="iva" ColumnName="iva" />
+          <ScalarProperty Name="total_iva" ColumnName="total_iva" />
+          <ScalarProperty Name="message" ColumnName="message" />
+          <ScalarProperty Name="idCustomer" ColumnName="idCustomer" />
+          <ScalarProperty Name="idUser" ColumnName="idUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sales_details">
+      <EntityTypeMapping TypeName="tpvModel.sales_details">
+        <MappingFragment StoreEntitySet="sales_details">
+          <ScalarProperty Name="idSale" ColumnName="idSale" />
+          <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user">
+      <EntityTypeMapping TypeName="tpvModel.user">
+        <MappingFragment StoreEntitySet="user">
+          <ScalarProperty Name="idUser" ColumnName="idUser" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="surnames" ColumnName="surnames" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="idRole" ColumnName="idRole" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="offers_customers" TypeName="tpvModel.offers_customers" StoreEntitySet="offers_customers">
+      <EndProperty Name="customer">
+        <ScalarProperty Name="idCustomer" ColumnName="idCustomer" />
+      </EndProperty>
+      <EndProperty Name="offer">
+        <ScalarProperty Name="idOffer" ColumnName="idOffer" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="permissions_roles" TypeName="tpvModel.permissions_roles" StoreEntitySet="permissions_roles">
+      <EndProperty Name="permission">
+        <ScalarProperty Name="idPermission" ColumnName="idPermission" />
+      </EndProperty>
+      <EndProperty Name="role">
+        <ScalarProperty Name="idRole" ColumnName="idRole" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

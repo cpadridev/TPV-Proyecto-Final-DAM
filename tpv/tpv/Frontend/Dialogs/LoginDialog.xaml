@@ -31,7 +31,7 @@
                     <Border.Background>
                         <SolidColorBrush Color="White" Opacity="0.3" />
                     </Border.Background>
-                    <TextBox Width="200" Panel.ZIndex="0" Padding="25, 0, 10, 0" mat:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" BorderBrush="Transparent" mat:HintAssist.Hint="Nombre de Usuario" VerticalContentAlignment="Center" />
+                    <TextBox Text="admin" Width="200" Panel.ZIndex="0" Padding="25, 0, 10, 0" mat:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" BorderBrush="Transparent" mat:HintAssist.Hint="Nombre de Usuario" VerticalContentAlignment="Center" x:Name="txbUsername" />
                 </Border>
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 30, 0, 50" Width="260">
@@ -42,10 +42,10 @@
                     <Border.Background>
                         <SolidColorBrush Color="White" Opacity="0.3" />
                     </Border.Background>
-                    <PasswordBox Width="200" Panel.ZIndex="0" Padding="25, 0, 10, 0" mat:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" BorderBrush="Transparent" mat:HintAssist.Hint="Contraseña" VerticalContentAlignment="Center" Cursor="" />
+                    <PasswordBox Password="admin" Width="200" Panel.ZIndex="0" Padding="25, 0, 10, 0" mat:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" BorderBrush="Transparent" mat:HintAssist.Hint="Contraseña" VerticalContentAlignment="Center" x:Name="pwdPassword" />
                 </Border>
             </StackPanel>
-            <Button Grid.Row="3" Content="INICIAR SESIÓN" IsDefault="True" Width="250" BorderBrush="Transparent" FontWeight="Bold" Margin="0, 0, 0, 30" Height="40" mat:ButtonAssist.CornerRadius="20" />
+            <Button Grid.Row="3" Content="INICIAR SESIÓN" IsDefault="True" Width="250" BorderBrush="Transparent" FontWeight="Bold" Margin="0, 0, 0, 30" Height="40" mat:ButtonAssist.CornerRadius="20" x:Name="btnLogin" Click="btnLogin_Click" />
         </Grid>
     </Grid>
 </mah:MetroWindow>

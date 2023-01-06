@@ -43,3 +43,5 @@ C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\bin\Debug\MySql.Data.
 C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\bin\Debug\MySql.Data.Entity.EF6.xml
 C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\bin\Debug\MySql.Data.xml
 C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\obj\Debug\tpv.csproj.AssemblyReference.cache
+C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\obj\Debug\tpv.csproj.SuggestedBindingRedirects.cache
+C:\Users\cpadri2003\Desktop\TPV Proyecto Final DAM\tpv\tpv\obj\Debug\tpv_Content.g.cs

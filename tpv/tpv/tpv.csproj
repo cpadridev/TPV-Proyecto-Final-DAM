@@ -170,6 +170,7 @@
     </Compile>
     <Compile Include="Backend\Services\Base\GenericService.cs" />
     <Compile Include="Backend\Services\Base\IGenericService.cs" />
+    <Compile Include="Backend\Services\UserService.cs" />
     <Compile Include="Frontend\Dialogs\LoginDialog.xaml.cs">
       <DependentUpon>LoginDialog.xaml</DependentUpon>
     </Compile>

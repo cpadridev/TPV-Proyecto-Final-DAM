@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using tpv.Backend.Models;
 
 namespace tpv
 {
@@ -21,9 +22,11 @@ namespace tpv
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        public MainWindow()
+        private user userLoggedIn;
+        public MainWindow(tpvEntities entities, user user)
         {
             InitializeComponent();
+            userLoggedIn = user;
         }
     }
 }
