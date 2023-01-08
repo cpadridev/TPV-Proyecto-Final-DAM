@@ -7,7 +7,7 @@
         xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:tpv.Frontend.Dialogs"
         mc:Ignorable="d"
-        Title="INICIAR SESIÓN" Width="1920" Height="1080" WindowState="Maximized">
+        Title="INICIAR SESIÓN" Height="450" Width="800" WindowState="Maximized">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -31,18 +31,18 @@
                     <Border.Background>
                         <SolidColorBrush Color="White" Opacity="0.3" />
                     </Border.Background>
-                    <TextBox Text="admin" Width="200" Panel.ZIndex="0" Padding="25, 0, 10, 0" mat:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" BorderBrush="Transparent" mat:HintAssist.Hint="Nombre de Usuario" VerticalContentAlignment="Center" x:Name="txbUsername" />
+                    <TextBox Text="admin" Width="200" Panel.ZIndex="0" Foreground="White" Padding="25, 0, 10, 0" mat:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" BorderBrush="Transparent" mat:HintAssist.Hint="Nombre de Usuario" VerticalContentAlignment="Center" x:Name="txbUsername" />
                 </Border>
             </StackPanel>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 30, 0, 50" Width="260">
                 <Border Margin="10, 0, -35, 0" Width="56" Height="56" Panel.ZIndex="1" Padding="5" BorderThickness="1" Background="#2F9CFA" CornerRadius="30" Cursor="">
-                    <mat:PackIcon Kind="LockOpenOutline" Width="32" Height="32" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <mat:PackIcon Kind="LockOutline" Width="32" Height="32" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Border>
                 <Border Margin="10, 0, -20, 0" Height="40" Panel.ZIndex="0" Padding="5" BorderThickness="1" CornerRadius="0, 25, 25, 0" Cursor="">
                     <Border.Background>
                         <SolidColorBrush Color="White" Opacity="0.3" />
                     </Border.Background>
-                    <PasswordBox Password="admin" Width="200" Panel.ZIndex="0" Padding="25, 0, 10, 0" mat:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" BorderBrush="Transparent" mat:HintAssist.Hint="Contraseña" VerticalContentAlignment="Center" x:Name="pwdPassword" />
+                    <PasswordBox Password="admin" Width="200" Panel.ZIndex="0" Foreground="White" Padding="25, 0, 10, 0" mat:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" BorderBrush="Transparent" mat:HintAssist.Hint="Contraseña" VerticalContentAlignment="Center" x:Name="pwdPassword" />
                 </Border>
             </StackPanel>
             <Button Grid.Row="3" Content="INICIAR SESIÓN" IsDefault="True" Width="250" BorderBrush="Transparent" FontWeight="Bold" Margin="0, 0, 0, 30" Height="40" mat:ButtonAssist.CornerRadius="20" x:Name="btnLogin" Click="btnLogin_Click" />
