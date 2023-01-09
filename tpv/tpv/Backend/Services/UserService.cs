@@ -20,6 +20,11 @@ namespace tpv.Backend.Services
             this.context = context;
         }
 
+        public List<permission> GetPermissionsByUser(int idUser)
+        {
+            return context.Set<role>().Where(r => r.idRole == context.Set<user>().Where(u => u.idUser == idUser).Select(u => u.role).FirstOrDefault().idRole).Select(r => r.permission.ToList()).FirstOrDefault();
+        }
+
         public Boolean Login(String username, String password)
         {
             try
