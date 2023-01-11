@@ -93,3 +93,4 @@ C:\Users\cpadridev\Desktop\TPV-Proyecto-Final-DAM\tpv\tpv\obj\Debug\tpv.csproj.C
 C:\Users\cpadridev\Desktop\TPV-Proyecto-Final-DAM\tpv\tpv\obj\Debug\tpv.csproj.CopyComplete
 C:\Users\cpadridev\Desktop\TPV-Proyecto-Final-DAM\tpv\tpv\obj\Debug\tpv.exe
 C:\Users\cpadridev\Desktop\TPV-Proyecto-Final-DAM\tpv\tpv\obj\Debug\tpv.pdb
+C:\Users\cpadridev\Desktop\TPV-Proyecto-Final-DAM\tpv\tpv\obj\Debug\tpv.csproj.SuggestedBindingRedirects.cache
