@@ -27,13 +27,15 @@ namespace tpv.Backend.Models
     
         public virtual DbSet<category> category { get; set; }
         public virtual DbSet<customer> customer { get; set; }
+        public virtual DbSet<customer_offers> customer_offers { get; set; }
         public virtual DbSet<location> location { get; set; }
         public virtual DbSet<offer> offer { get; set; }
         public virtual DbSet<permission> permission { get; set; }
         public virtual DbSet<product> product { get; set; }
         public virtual DbSet<role> role { get; set; }
+        public virtual DbSet<role_permissions> role_permissions { get; set; }
         public virtual DbSet<sale> sale { get; set; }
-        public virtual DbSet<sales_details> sales_details { get; set; }
+        public virtual DbSet<sale_details> sale_details { get; set; }
         public virtual DbSet<user> user { get; set; }
     }
 }

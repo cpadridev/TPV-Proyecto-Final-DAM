@@ -22,7 +22,7 @@ namespace tpv.Backend.Services
 
         public List<product> GetProductsByCategory(int idCategory)
         {
-            return context.Set<product>().Where(p => p.idCategory == idCategory).ToList();
+            return context.Set<product>().Where(p => p.id_category == idCategory).ToList();
         }
     }
 }

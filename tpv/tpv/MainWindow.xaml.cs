@@ -30,7 +30,7 @@ namespace tpv
         private ProductService prodServ;
         private List<category> categoriesList;
         private List<product> productsList;
-        private MVSaleDetail mvSaleDetail;
+        private MVSaleDetails mvSaleDetails;
         private int idProductPressed;
 
         public MainWindow(tpvEntities tpvEntities, user user)
@@ -40,8 +40,8 @@ namespace tpv
             catServ = new CategoryService(tpvEntities);
             prodServ = new ProductService(tpvEntities);
             userServ = new UserService(tpvEntities);
-            mvSaleDetail = new MVSaleDetail();
-            DataContext = mvSaleDetail;
+            mvSaleDetails = new MVSaleDetails();
+            DataContext = mvSaleDetails;
             txtUsername.Text = userLoggedIn.username;
             idProductPressed = 0;
             CheckPermissions();
@@ -56,8 +56,8 @@ namespace tpv
                 Button btnNumber = new Button
                 {
                     Content = i + 1,
-                    Height = 60,
-                    Width = 60,
+                    Height = 80,
+                    Width = 80,
                     Margin = new Thickness(2.5)
                 };
 
@@ -87,7 +87,7 @@ namespace tpv
                     Margin = new Thickness(7.5)
                 };
 
-                int idCategory = categoriesList[i].idCategory;
+                int idCategory = categoriesList[i].id_category;
 
                 btnCategory.Click += (s, e) =>
                 {
@@ -102,7 +102,7 @@ namespace tpv
 
         private void CheckPermissions()
         {
-            List<permission> permissionsList = userServ.GetPermissionsByUser(userLoggedIn.idUser);
+            List<permission> permissionsList = userServ.GetPermissionsByUser(userLoggedIn.id_user);
 
             btnContinue.IsEnabled = false;
             mniReturnSales.Visibility = Visibility.Collapsed;
@@ -119,7 +119,7 @@ namespace tpv
 
             foreach (permission p in permissionsList)
             {
-                switch (p.idPermission)
+                switch (p.id_permission)
                 {
                     case 1:
                         btnContinue.IsEnabled = true;
@@ -176,8 +176,8 @@ namespace tpv
                     Button btnProduct = new Button
                     {
                         Content = productsList[i].name,
-                        Height = 200,
-                        Width = 200,
+                        Height = 150,
+                        Width = 150,
                         Margin = new Thickness(10)
                     };
 
@@ -208,7 +208,7 @@ namespace tpv
 
                     btnProduct.Click += (s, e) =>
                     {
-                        sales_details saleDetail = new sales_details();
+                        sale_details saleDetail = new sale_details();
 
                         saleDetail.product = product;
                         saleDetail.quantity = 1;
@@ -219,9 +219,9 @@ namespace tpv
                             saleDetail.price = product.price - (double)(product.price * (product.offer.discount / 100));
                         }
 
-                        if (!mvSaleDetail.newSaleDetail.Any(d => d.product == saleDetail.product))
+                        if (!mvSaleDetails.newSaleDetails.Any(d => d.product == saleDetail.product))
                         {
-                            mvSaleDetail.newSaleDetail.Add(saleDetail);
+                            mvSaleDetails.newSaleDetails.Add(saleDetail);
 
                             if (!string.IsNullOrEmpty(txbTotal.Text))
                             {
@@ -232,9 +232,9 @@ namespace tpv
                                 txbTotal.Text = saleDetail.price.ToString();
                             }
 
-                            dataGridSale.Items.Refresh();
-                            dataGridSale.SelectedItem = saleDetail;
-                            dataGridSale.Focus();
+                            dataGridSaleDetails.Items.Refresh();
+                            dataGridSaleDetails.SelectedItem = saleDetail;
+                            dataGridSaleDetails.Focus();
                         }
                     };
 
@@ -243,7 +243,7 @@ namespace tpv
                         if (await TouchHold(btnProduct, TimeSpan.FromSeconds(1.5)))
                         {
                             txtProductSelected.Text = product.name;
-                            idProductPressed = product.idProduct;
+                            idProductPressed = product.id_product;
                         }
                     };
 
@@ -285,9 +285,9 @@ namespace tpv
 
         private void btnDeleteList_Click(object sender, RoutedEventArgs e)
         {
-            mvSaleDetail.newSaleDetail.Clear();
+            mvSaleDetails.newSaleDetails.Clear();
 
-            dataGridSale.Items.Refresh();
+            dataGridSaleDetails.Items.Refresh();
 
             txbTotal.Text = string.Empty;
             txbNameProduct.Text = string.Empty;
@@ -299,9 +299,9 @@ namespace tpv
 
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
-            if (mvSaleDetail.newSaleDetail.Count != 0)
+            if (mvSaleDetails.newSaleDetails.Count != 0)
             {
-                /*MakePurchaseDialogMVVM dialog = new MakePurchaseDialogMVVM(tpvEnt, mvSaleDetail.newSaleDetail, userLoggedIn, double.Parse(txbTotal.Text));
+                /*MakePurchaseDialogMVVM dialog = new MakePurchaseDialogMVVM(tpvEnt, mvSaleDetails.newSaleDetails, userLoggedIn, double.Parse(txbTotal.Text));
                 dialog.Show();*/
             }
         }
@@ -325,26 +325,26 @@ namespace tpv
 
         private void btnNumber_Click(object sender, RoutedEventArgs e)
         {
-            sales_details saleDetail = (sales_details)dataGridSale.SelectedItem;
+            sale_details saleDetails = (sale_details)dataGridSaleDetails.SelectedItem;
 
-            if (saleDetail != null)
+            if (saleDetails != null)
             {
                 Button btn = (Button)sender;
-
-                txbQuantityProduct.Text = btn.Content.ToString();
 
                 if (txbQuantityProduct.Text != "0")
                 {
                     txbQuantityProduct.Text += btn.Content.ToString();
+                }
+                else
+                {
+                    txbQuantityProduct.Text = btn.Content.ToString();
                 }
             }
         }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-            sales_details saleDetail = (sales_details)dataGridSale.SelectedItem;
-
-            if (saleDetail != null)
+            if ((sale_details)dataGridSaleDetails.SelectedItem != null)
             {
                 txbQuantityProduct.Text = "0";
             }
@@ -352,24 +352,19 @@ namespace tpv
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            sales_details saleDetail = (sales_details)dataGridSale.SelectedItem;
-
-            if (saleDetail != null)
+            if ((sale_details)dataGridSaleDetails.SelectedItem != null && txbQuantityProduct.Text.Length > 1)
+            {
+                txbQuantityProduct.Text = txbQuantityProduct.Text.Remove(txbQuantityProduct.Text.Length - 1);
+            }
+            else
             {
                 txbQuantityProduct.Text = "0";
-
-                if (txbQuantityProduct.Text.Length > 1)
-                {
-                    txbQuantityProduct.Text = txbQuantityProduct.Text.Remove(txbQuantityProduct.Text.Length - 1);
-                }
             }
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            sales_details saleDetail = (sales_details)dataGridSale.SelectedItem;
-
-            if (saleDetail != null)
+            if ((sale_details)dataGridSaleDetails.SelectedItem != null)
             {
                 txbQuantityProduct.Text = (double.Parse(txbQuantityProduct.Text) + 1).ToString();
             }
@@ -377,9 +372,7 @@ namespace tpv
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
-            sales_details saleDetail = (sales_details)dataGridSale.SelectedItem;
-
-            if (saleDetail != null && double.Parse(txbQuantityProduct.Text) > 0)
+            if ((sale_details)dataGridSaleDetails.SelectedItem != null && double.Parse(txbQuantityProduct.Text) > 0)
             {
                 txbQuantityProduct.Text = (double.Parse(txbQuantityProduct.Text) - 1).ToString();
             }
@@ -387,59 +380,59 @@ namespace tpv
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
-            sales_details saleDetail = (sales_details)dataGridSale.SelectedItem;
+            sale_details saleDetails = (sale_details)dataGridSaleDetails.SelectedItem;
 
-            if (saleDetail != null && saleDetail.quantity != double.Parse(txbQuantityProduct.Text))
+            if (saleDetails != null && saleDetails.quantity != double.Parse(txbQuantityProduct.Text))
             {
-                double pastPrice = saleDetail.price;
+                double pastPrice = saleDetails.price;
 
                 if (txbQuantityProduct.Text == "0")
                 {
                     txbQuantityProduct.Text = "1";
                 }
 
-                saleDetail.quantity = int.Parse(txbQuantityProduct.Text);
+                saleDetails.quantity = int.Parse(txbQuantityProduct.Text);
 
-                if (int.Parse(txbQuantityProduct.Text) > saleDetail.product.quantity)
+                if (int.Parse(txbQuantityProduct.Text) > saleDetails.product.quantity)
                 {
-                    saleDetail.quantity = saleDetail.product.quantity;
-                    txbQuantityProduct.Text = saleDetail.product.quantity.ToString();
+                    saleDetails.quantity = saleDetails.product.quantity;
+                    txbQuantityProduct.Text = saleDetails.product.quantity.ToString();
                 }
 
-                saleDetail.price = saleDetail.quantity * saleDetail.product.price;
+                saleDetails.price = saleDetails.quantity * saleDetails.product.price;
 
-                sales_details sale = mvSaleDetail.newSaleDetail.FirstOrDefault(s => s == saleDetail);
+                sale_details sale = mvSaleDetails.newSaleDetails.FirstOrDefault(s => s == saleDetails);
 
                 sale.quantity = int.Parse(txbQuantityProduct.Text);
 
-                if (int.Parse(txbQuantityProduct.Text) > saleDetail.product.quantity)
+                if (int.Parse(txbQuantityProduct.Text) > saleDetails.product.quantity)
                 {
-                    sale.quantity = saleDetail.product.quantity;
+                    sale.quantity = saleDetails.product.quantity;
                 }
 
-                dataGridSale.Items.Refresh();
-                dataGridSale.SelectedItem = saleDetail;
+                dataGridSaleDetails.Items.Refresh();
+                dataGridSaleDetails.SelectedItem = saleDetails;
 
-                txbTotalProduct.Text = (saleDetail.price).ToString();
-                txbTotal.Text = (double.Parse(txbTotal.Text) - pastPrice + (saleDetail.quantity * saleDetail.product.price)).ToString();
+                txbTotalProduct.Text = saleDetails.price.ToString();
+                txbTotal.Text = (double.Parse(txbTotal.Text) - pastPrice + (saleDetails.quantity * saleDetails.product.price)).ToString();
             }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            sales_details saleDetail = (sales_details)dataGridSale.SelectedItem;
+            sale_details saleDetails = (sale_details)dataGridSaleDetails.SelectedItem;
 
-            if (saleDetail != null)
+            if (saleDetails != null)
             {
-                mvSaleDetail.newSaleDetail.Remove(mvSaleDetail.newSaleDetail.Single(s => s == saleDetail));
-                dataGridSale.Items.Refresh();
-                sales_details lastitem = mvSaleDetail.newSaleDetail.LastOrDefault();
+                mvSaleDetails.newSaleDetails.Remove(mvSaleDetails.newSaleDetails.Single(s => s == saleDetails));
+                dataGridSaleDetails.Items.Refresh();
+                sale_details lastitem = mvSaleDetails.newSaleDetails.LastOrDefault();
 
                 if (lastitem != null)
                 {
-                    dataGridSale.SelectedItem = lastitem;
-                    dataGridSale.ScrollIntoView(lastitem);
-                    dataGridSale.Focus();
+                    dataGridSaleDetails.SelectedItem = lastitem;
+                    dataGridSaleDetails.ScrollIntoView(lastitem);
+                    dataGridSaleDetails.Focus();
                     txbTotal.Text = (double.Parse(txbTotal.Text) - (lastitem.quantity * lastitem.product.price)).ToString();
 
                     txbNameProduct.Text = lastitem.product.name;
@@ -463,21 +456,21 @@ namespace tpv
             }
         }
 
-        private void dataGridSale_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void dataGridSaleDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            sales_details saleDetail = (sales_details)dataGridSale.SelectedItem;
+            sale_details saleDetails = (sale_details)dataGridSaleDetails.SelectedItem;
 
-            if (saleDetail != null)
+            if (saleDetails != null)
             {
-                txbNameProduct.Text = saleDetail.product.name;
-                txbQuantityProduct.Text = saleDetail.quantity.ToString();
-                txbPriceProduct.Text = saleDetail.product.price.ToString();
+                txbNameProduct.Text = saleDetails.product.name;
+                txbQuantityProduct.Text = saleDetails.quantity.ToString();
+                txbPriceProduct.Text = saleDetails.product.price.ToString();
                 txbOfferProduct.Text = string.Empty;
-                if (saleDetail.product.offer != null)
+                if (saleDetails.product.offer != null)
                 {
-                    txbOfferProduct.Text = saleDetail.product.offer.discount.ToString();
+                    txbOfferProduct.Text = saleDetails.product.offer.discount.ToString();
                 }
-                txbTotalProduct.Text = (saleDetail.quantity * saleDetail.product.price).ToString();
+                txbTotalProduct.Text = (saleDetails.quantity * saleDetails.product.price).ToString();
             }
         }
 

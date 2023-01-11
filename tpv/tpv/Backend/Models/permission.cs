@@ -17,13 +17,13 @@ namespace tpv.Backend.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public permission()
         {
-            this.role = new HashSet<role>();
+            this.role_permissions = new HashSet<role_permissions>();
         }
     
-        public int idPermission { get; set; }
+        public int id_permission { get; set; }
         public string description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<role> role { get; set; }
+        public virtual ICollection<role_permissions> role_permissions { get; set; }
     }
 }

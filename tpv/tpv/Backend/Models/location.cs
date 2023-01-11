@@ -20,7 +20,7 @@ namespace tpv.Backend.Models
             this.product = new HashSet<product>();
         }
     
-        public int idLocation { get; set; }
+        public int id_location { get; set; }
         public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

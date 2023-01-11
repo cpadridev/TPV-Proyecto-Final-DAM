@@ -17,22 +17,20 @@ namespace tpv.Backend.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public sale()
         {
-            this.sales_details = new HashSet<sales_details>();
+            this.sale_details = new HashSet<sale_details>();
         }
     
-        public int idSale { get; set; }
+        public int id_sale { get; set; }
         public System.DateTime date { get; set; }
         public string payment { get; set; }
         public double total { get; set; }
-        public Nullable<int> iva { get; set; }
-        public Nullable<double> total_iva { get; set; }
-        public string message { get; set; }
-        public int idCustomer { get; set; }
-        public int idUser { get; set; }
+        public byte[] ticket { get; set; }
+        public int id_customer { get; set; }
+        public int id_user { get; set; }
     
         public virtual customer customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<sales_details> sales_details { get; set; }
+        public virtual ICollection<sale_details> sale_details { get; set; }
         public virtual user user { get; set; }
     }
 }

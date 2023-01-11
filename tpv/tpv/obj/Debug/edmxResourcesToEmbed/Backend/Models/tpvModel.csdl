@@ -2,276 +2,359 @@
 <Schema Namespace="tpvModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="category">
     <Key>
-      <PropertyRef Name="idCategory" />
+      <PropertyRef Name="id_category" />
     </Key>
-    <Property Name="idCategory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_category" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="product" Relationship="Self.fk_Product_Category1" FromRole="category" ToRole="product" />
+    <NavigationProperty Name="product" Relationship="Self.fk_product_category1" FromRole="category" ToRole="product" />
   </EntityType>
   <EntityType Name="customer">
     <Key>
-      <PropertyRef Name="idCustomer" />
+      <PropertyRef Name="id_customer" />
     </Key>
-    <Property Name="idCustomer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_customer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="surnames" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-    <Property Name="email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-    <Property Name="address" Type="String" MaxLength="90" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="sale" Relationship="Self.fk_Sale_Customer1" FromRole="customer" ToRole="sale" />
-    <NavigationProperty Name="offer" Relationship="Self.offers_customers" FromRole="customer" ToRole="offer" />
+    <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="city" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="zip_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="customer_offers" Relationship="Self.fk_customer_offers_customer" FromRole="customer" ToRole="customer_offers" />
+    <NavigationProperty Name="sale" Relationship="Self.fk_sale_customer1" FromRole="customer" ToRole="sale" />
+  </EntityType>
+  <EntityType Name="customer_offers">
+    <Key>
+      <PropertyRef Name="id_customer_offers" />
+      <PropertyRef Name="id_customer" />
+      <PropertyRef Name="id_offer" />
+    </Key>
+    <Property Name="id_customer_offers" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_customer" Type="Int32" Nullable="false" />
+    <Property Name="id_offer" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="customer" Relationship="Self.fk_customer_offers_customer" FromRole="customer_offers" ToRole="customer" />
+    <NavigationProperty Name="offer" Relationship="Self.fk_customer_offers_offer1" FromRole="customer_offers" ToRole="offer" />
   </EntityType>
   <EntityType Name="location">
     <Key>
-      <PropertyRef Name="idLocation" />
+      <PropertyRef Name="id_location" />
     </Key>
-    <Property Name="idLocation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_location" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="product" Relationship="Self.fk_Product_Location1" FromRole="location" ToRole="product" />
+    <NavigationProperty Name="product" Relationship="Self.fk_product_location1" FromRole="location" ToRole="product" />
   </EntityType>
   <EntityType Name="offer">
     <Key>
-      <PropertyRef Name="idOffer" />
+      <PropertyRef Name="id_offer" />
     </Key>
-    <Property Name="idOffer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_offer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
     <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="period" Type="DateTime" Nullable="false" />
     <Property Name="file" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="discount" Type="Double" />
-    <NavigationProperty Name="product" Relationship="Self.fk_Product_Offer1" FromRole="offer" ToRole="product" />
-    <NavigationProperty Name="customer" Relationship="Self.offers_customers" FromRole="offer" ToRole="customer" />
+    <NavigationProperty Name="customer_offers" Relationship="Self.fk_customer_offers_offer1" FromRole="offer" ToRole="customer_offers" />
+    <NavigationProperty Name="product" Relationship="Self.fk_product_offer1" FromRole="offer" ToRole="product" />
   </EntityType>
   <EntityType Name="permission">
     <Key>
-      <PropertyRef Name="idPermission" />
+      <PropertyRef Name="id_permission" />
     </Key>
-    <Property Name="idPermission" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="role" Relationship="Self.permissions_roles" FromRole="permission" ToRole="role" />
+    <Property Name="id_permission" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="role_permissions" Relationship="Self.fk_role_permissions_permission1" FromRole="permission" ToRole="role_permissions" />
   </EntityType>
   <EntityType Name="product">
     <Key>
-      <PropertyRef Name="idProduct" />
+      <PropertyRef Name="id_product" />
     </Key>
-    <Property Name="idProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_product" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
     <Property Name="price" Type="Double" Nullable="false" />
+    <Property Name="iva" Type="Int32" />
     <Property Name="quantity" Type="Int32" Nullable="false" />
-    <Property Name="idCategory" Type="Int32" Nullable="false" />
-    <Property Name="idLocation" Type="Int32" Nullable="false" />
-    <Property Name="idOffer" Type="Int32" />
-    <NavigationProperty Name="category" Relationship="Self.fk_Product_Category1" FromRole="product" ToRole="category" />
-    <NavigationProperty Name="location" Relationship="Self.fk_Product_Location1" FromRole="product" ToRole="location" />
-    <NavigationProperty Name="offer" Relationship="Self.fk_Product_Offer1" FromRole="product" ToRole="offer" />
-    <NavigationProperty Name="sales_details" Relationship="Self.fk_Sale_has_Product_Product1" FromRole="product" ToRole="sales_details" />
+    <Property Name="id_category" Type="Int32" Nullable="false" />
+    <Property Name="id_location" Type="Int32" Nullable="false" />
+    <Property Name="id_offer" Type="Int32" />
+    <NavigationProperty Name="category" Relationship="Self.fk_product_category1" FromRole="product" ToRole="category" />
+    <NavigationProperty Name="location" Relationship="Self.fk_product_location1" FromRole="product" ToRole="location" />
+    <NavigationProperty Name="offer" Relationship="Self.fk_product_offer1" FromRole="product" ToRole="offer" />
+    <NavigationProperty Name="sale_details" Relationship="Self.fk_sale_details_product1" FromRole="product" ToRole="sale_details" />
   </EntityType>
   <EntityType Name="role">
     <Key>
-      <PropertyRef Name="idRole" />
+      <PropertyRef Name="id_role" />
     </Key>
-    <Property Name="idRole" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="user" Relationship="Self.fk_User_Role1" FromRole="role" ToRole="user" />
-    <NavigationProperty Name="permission" Relationship="Self.permissions_roles" FromRole="role" ToRole="permission" />
+    <NavigationProperty Name="role_permissions" Relationship="Self.fk_role_permissions_role1" FromRole="role" ToRole="role_permissions" />
+    <NavigationProperty Name="user" Relationship="Self.fk_user_role1" FromRole="role" ToRole="user" />
+  </EntityType>
+  <EntityType Name="role_permissions">
+    <Key>
+      <PropertyRef Name="id_role_permissions" />
+      <PropertyRef Name="id_role" />
+      <PropertyRef Name="id_permission" />
+    </Key>
+    <Property Name="id_role_permissions" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_role" Type="Int32" Nullable="false" />
+    <Property Name="id_permission" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="permission" Relationship="Self.fk_role_permissions_permission1" FromRole="role_permissions" ToRole="permission" />
+    <NavigationProperty Name="role" Relationship="Self.fk_role_permissions_role1" FromRole="role_permissions" ToRole="role" />
   </EntityType>
   <EntityType Name="sale">
     <Key>
-      <PropertyRef Name="idSale" />
+      <PropertyRef Name="id_sale" />
     </Key>
-    <Property Name="idSale" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_sale" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="date" Type="DateTime" Nullable="false" />
-    <Property Name="payment" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="payment" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="total" Type="Double" Nullable="false" />
-    <Property Name="iva" Type="Int32" />
-    <Property Name="total_iva" Type="Double" />
-    <Property Name="message" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="idCustomer" Type="Int32" Nullable="false" />
-    <Property Name="idUser" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="customer" Relationship="Self.fk_Sale_Customer1" FromRole="sale" ToRole="customer" />
-    <NavigationProperty Name="sales_details" Relationship="Self.fk_Sale_has_Product_Sale" FromRole="sale" ToRole="sales_details" />
-    <NavigationProperty Name="user" Relationship="Self.fk_Sale_User1" FromRole="sale" ToRole="user" />
+    <Property Name="ticket" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="id_customer" Type="Int32" Nullable="false" />
+    <Property Name="id_user" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="customer" Relationship="Self.fk_sale_customer1" FromRole="sale" ToRole="customer" />
+    <NavigationProperty Name="sale_details" Relationship="Self.fk_sale_details_sale1" FromRole="sale" ToRole="sale_details" />
+    <NavigationProperty Name="user" Relationship="Self.fk_sale_user1" FromRole="sale" ToRole="user" />
   </EntityType>
-  <EntityType Name="sales_details">
+  <EntityType Name="sale_details">
     <Key>
-      <PropertyRef Name="idSale" />
-      <PropertyRef Name="idProduct" />
+      <PropertyRef Name="id_sale_details" />
+      <PropertyRef Name="id_sale" />
+      <PropertyRef Name="id_product" />
     </Key>
-    <Property Name="idSale" Type="Int32" Nullable="false" />
-    <Property Name="idProduct" Type="Int32" Nullable="false" />
+    <Property Name="id_sale_details" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_sale" Type="Int32" Nullable="false" />
+    <Property Name="id_product" Type="Int32" Nullable="false" />
     <Property Name="quantity" Type="Int32" Nullable="false" />
     <Property Name="price" Type="Double" Nullable="false" />
-    <NavigationProperty Name="product" Relationship="Self.fk_Sale_has_Product_Product1" FromRole="sales_details" ToRole="product" />
-    <NavigationProperty Name="sale" Relationship="Self.fk_Sale_has_Product_Sale" FromRole="sales_details" ToRole="sale" />
+    <NavigationProperty Name="product" Relationship="Self.fk_sale_details_product1" FromRole="sale_details" ToRole="product" />
+    <NavigationProperty Name="sale" Relationship="Self.fk_sale_details_sale1" FromRole="sale_details" ToRole="sale" />
   </EntityType>
   <EntityType Name="user">
     <Key>
-      <PropertyRef Name="idUser" />
+      <PropertyRef Name="id_user" />
     </Key>
-    <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="surnames" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="surnames" Type="String" MaxLength="90" FixedLength="false" Unicode="false" />
     <Property Name="username" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="password" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="idRole" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="role" Relationship="Self.fk_User_Role1" FromRole="user" ToRole="role" />
-    <NavigationProperty Name="sale" Relationship="Self.fk_Sale_User1" FromRole="user" ToRole="sale" />
+    <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="city" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="zip_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="id_role" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="role" Relationship="Self.fk_user_role1" FromRole="user" ToRole="role" />
+    <NavigationProperty Name="sale" Relationship="Self.fk_sale_user1" FromRole="user" ToRole="sale" />
   </EntityType>
-  <Association Name="fk_Product_Category1">
+  <Association Name="fk_product_category1">
     <End Role="category" Type="Self.category" Multiplicity="1" />
     <End Role="product" Type="Self.product" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="category">
-        <PropertyRef Name="idCategory" />
+        <PropertyRef Name="id_category" />
       </Principal>
       <Dependent Role="product">
-        <PropertyRef Name="idCategory" />
+        <PropertyRef Name="id_category" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_Sale_Customer1">
+  <Association Name="fk_customer_offers_customer">
+    <End Role="customer" Type="Self.customer" Multiplicity="1" />
+    <End Role="customer_offers" Type="Self.customer_offers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customer">
+        <PropertyRef Name="id_customer" />
+      </Principal>
+      <Dependent Role="customer_offers">
+        <PropertyRef Name="id_customer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_sale_customer1">
     <End Role="customer" Type="Self.customer" Multiplicity="1" />
     <End Role="sale" Type="Self.sale" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="customer">
-        <PropertyRef Name="idCustomer" />
+        <PropertyRef Name="id_customer" />
       </Principal>
       <Dependent Role="sale">
-        <PropertyRef Name="idCustomer" />
+        <PropertyRef Name="id_customer" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_Product_Location1">
+  <Association Name="fk_customer_offers_offer1">
+    <End Role="offer" Type="Self.offer" Multiplicity="1" />
+    <End Role="customer_offers" Type="Self.customer_offers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="offer">
+        <PropertyRef Name="id_offer" />
+      </Principal>
+      <Dependent Role="customer_offers">
+        <PropertyRef Name="id_offer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_product_location1">
     <End Role="location" Type="Self.location" Multiplicity="1" />
     <End Role="product" Type="Self.product" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="location">
-        <PropertyRef Name="idLocation" />
+        <PropertyRef Name="id_location" />
       </Principal>
       <Dependent Role="product">
-        <PropertyRef Name="idLocation" />
+        <PropertyRef Name="id_location" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_Product_Offer1">
+  <Association Name="fk_product_offer1">
     <End Role="offer" Type="Self.offer" Multiplicity="0..1" />
     <End Role="product" Type="Self.product" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="offer">
-        <PropertyRef Name="idOffer" />
+        <PropertyRef Name="id_offer" />
       </Principal>
       <Dependent Role="product">
-        <PropertyRef Name="idOffer" />
+        <PropertyRef Name="id_offer" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_Sale_has_Product_Product1">
+  <Association Name="fk_role_permissions_permission1">
+    <End Role="permission" Type="Self.permission" Multiplicity="1" />
+    <End Role="role_permissions" Type="Self.role_permissions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="permission">
+        <PropertyRef Name="id_permission" />
+      </Principal>
+      <Dependent Role="role_permissions">
+        <PropertyRef Name="id_permission" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_sale_details_product1">
     <End Role="product" Type="Self.product" Multiplicity="1" />
-    <End Role="sales_details" Type="Self.sales_details" Multiplicity="*" />
+    <End Role="sale_details" Type="Self.sale_details" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="product">
-        <PropertyRef Name="idProduct" />
+        <PropertyRef Name="id_product" />
       </Principal>
-      <Dependent Role="sales_details">
-        <PropertyRef Name="idProduct" />
+      <Dependent Role="sale_details">
+        <PropertyRef Name="id_product" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_User_Role1">
+  <Association Name="fk_role_permissions_role1">
+    <End Role="role" Type="Self.role" Multiplicity="1" />
+    <End Role="role_permissions" Type="Self.role_permissions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="role">
+        <PropertyRef Name="id_role" />
+      </Principal>
+      <Dependent Role="role_permissions">
+        <PropertyRef Name="id_role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_user_role1">
     <End Role="role" Type="Self.role" Multiplicity="1" />
     <End Role="user" Type="Self.user" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="role">
-        <PropertyRef Name="idRole" />
+        <PropertyRef Name="id_role" />
       </Principal>
       <Dependent Role="user">
-        <PropertyRef Name="idRole" />
+        <PropertyRef Name="id_role" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_Sale_has_Product_Sale">
+  <Association Name="fk_sale_details_sale1">
     <End Role="sale" Type="Self.sale" Multiplicity="1" />
-    <End Role="sales_details" Type="Self.sales_details" Multiplicity="*" />
+    <End Role="sale_details" Type="Self.sale_details" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="sale">
-        <PropertyRef Name="idSale" />
+        <PropertyRef Name="id_sale" />
       </Principal>
-      <Dependent Role="sales_details">
-        <PropertyRef Name="idSale" />
+      <Dependent Role="sale_details">
+        <PropertyRef Name="id_sale" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_Sale_User1">
+  <Association Name="fk_sale_user1">
     <End Role="user" Type="Self.user" Multiplicity="1" />
     <End Role="sale" Type="Self.sale" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="user">
-        <PropertyRef Name="idUser" />
+        <PropertyRef Name="id_user" />
       </Principal>
       <Dependent Role="sale">
-        <PropertyRef Name="idUser" />
+        <PropertyRef Name="id_user" />
       </Dependent>
     </ReferentialConstraint>
-  </Association>
-  <Association Name="offers_customers">
-    <End Role="customer" Type="Self.customer" Multiplicity="*" />
-    <End Role="offer" Type="Self.offer" Multiplicity="*" />
-  </Association>
-  <Association Name="permissions_roles">
-    <End Role="permission" Type="Self.permission" Multiplicity="*" />
-    <End Role="role" Type="Self.role" Multiplicity="*" />
   </Association>
   <EntityContainer Name="tpvEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="category" EntityType="Self.category" />
     <EntitySet Name="customer" EntityType="Self.customer" />
+    <EntitySet Name="customer_offers" EntityType="Self.customer_offers" />
     <EntitySet Name="location" EntityType="Self.location" />
     <EntitySet Name="offer" EntityType="Self.offer" />
     <EntitySet Name="permission" EntityType="Self.permission" />
     <EntitySet Name="product" EntityType="Self.product" />
     <EntitySet Name="role" EntityType="Self.role" />
+    <EntitySet Name="role_permissions" EntityType="Self.role_permissions" />
     <EntitySet Name="sale" EntityType="Self.sale" />
-    <EntitySet Name="sales_details" EntityType="Self.sales_details" />
+    <EntitySet Name="sale_details" EntityType="Self.sale_details" />
     <EntitySet Name="user" EntityType="Self.user" />
-    <AssociationSet Name="fk_Product_Category1" Association="Self.fk_Product_Category1">
+    <AssociationSet Name="fk_product_category1" Association="Self.fk_product_category1">
       <End Role="category" EntitySet="category" />
       <End Role="product" EntitySet="product" />
     </AssociationSet>
-    <AssociationSet Name="fk_Sale_Customer1" Association="Self.fk_Sale_Customer1">
+    <AssociationSet Name="fk_customer_offers_customer" Association="Self.fk_customer_offers_customer">
+      <End Role="customer" EntitySet="customer" />
+      <End Role="customer_offers" EntitySet="customer_offers" />
+    </AssociationSet>
+    <AssociationSet Name="fk_sale_customer1" Association="Self.fk_sale_customer1">
       <End Role="customer" EntitySet="customer" />
       <End Role="sale" EntitySet="sale" />
     </AssociationSet>
-    <AssociationSet Name="fk_Product_Location1" Association="Self.fk_Product_Location1">
+    <AssociationSet Name="fk_customer_offers_offer1" Association="Self.fk_customer_offers_offer1">
+      <End Role="offer" EntitySet="offer" />
+      <End Role="customer_offers" EntitySet="customer_offers" />
+    </AssociationSet>
+    <AssociationSet Name="fk_product_location1" Association="Self.fk_product_location1">
       <End Role="location" EntitySet="location" />
       <End Role="product" EntitySet="product" />
     </AssociationSet>
-    <AssociationSet Name="fk_Product_Offer1" Association="Self.fk_Product_Offer1">
+    <AssociationSet Name="fk_product_offer1" Association="Self.fk_product_offer1">
       <End Role="offer" EntitySet="offer" />
       <End Role="product" EntitySet="product" />
     </AssociationSet>
-    <AssociationSet Name="fk_Sale_has_Product_Product1" Association="Self.fk_Sale_has_Product_Product1">
-      <End Role="product" EntitySet="product" />
-      <End Role="sales_details" EntitySet="sales_details" />
-    </AssociationSet>
-    <AssociationSet Name="fk_User_Role1" Association="Self.fk_User_Role1">
-      <End Role="role" EntitySet="role" />
-      <End Role="user" EntitySet="user" />
-    </AssociationSet>
-    <AssociationSet Name="fk_Sale_has_Product_Sale" Association="Self.fk_Sale_has_Product_Sale">
-      <End Role="sale" EntitySet="sale" />
-      <End Role="sales_details" EntitySet="sales_details" />
-    </AssociationSet>
-    <AssociationSet Name="fk_Sale_User1" Association="Self.fk_Sale_User1">
-      <End Role="user" EntitySet="user" />
-      <End Role="sale" EntitySet="sale" />
-    </AssociationSet>
-    <AssociationSet Name="offers_customers" Association="Self.offers_customers">
-      <End Role="customer" EntitySet="customer" />
-      <End Role="offer" EntitySet="offer" />
-    </AssociationSet>
-    <AssociationSet Name="permissions_roles" Association="Self.permissions_roles">
+    <AssociationSet Name="fk_role_permissions_permission1" Association="Self.fk_role_permissions_permission1">
       <End Role="permission" EntitySet="permission" />
+      <End Role="role_permissions" EntitySet="role_permissions" />
+    </AssociationSet>
+    <AssociationSet Name="fk_sale_details_product1" Association="Self.fk_sale_details_product1">
+      <End Role="product" EntitySet="product" />
+      <End Role="sale_details" EntitySet="sale_details" />
+    </AssociationSet>
+    <AssociationSet Name="fk_role_permissions_role1" Association="Self.fk_role_permissions_role1">
       <End Role="role" EntitySet="role" />
+      <End Role="role_permissions" EntitySet="role_permissions" />
+    </AssociationSet>
+    <AssociationSet Name="fk_user_role1" Association="Self.fk_user_role1">
+      <End Role="role" EntitySet="role" />
+      <End Role="user" EntitySet="user" />
+    </AssociationSet>
+    <AssociationSet Name="fk_sale_details_sale1" Association="Self.fk_sale_details_sale1">
+      <End Role="sale" EntitySet="sale" />
+      <End Role="sale_details" EntitySet="sale_details" />
+    </AssociationSet>
+    <AssociationSet Name="fk_sale_user1" Association="Self.fk_sale_user1">
+      <End Role="user" EntitySet="user" />
+      <End Role="sale" EntitySet="sale" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

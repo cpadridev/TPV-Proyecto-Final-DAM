@@ -12,18 +12,15 @@ namespace tpv.Backend.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class category
+    public partial class sale_details
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public category()
-        {
-            this.product = new HashSet<product>();
-        }
+        public int id_sale_details { get; set; }
+        public int id_sale { get; set; }
+        public int id_product { get; set; }
+        public int quantity { get; set; }
+        public double price { get; set; }
     
-        public int id_category { get; set; }
-        public string name { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<product> product { get; set; }
+        public virtual product product { get; set; }
+        public virtual sale sale { get; set; }
     }
 }

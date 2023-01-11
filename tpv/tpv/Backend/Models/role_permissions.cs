@@ -12,14 +12,13 @@ namespace tpv.Backend.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sales_details
+    public partial class role_permissions
     {
-        public int idSale { get; set; }
-        public int idProduct { get; set; }
-        public int quantity { get; set; }
-        public double price { get; set; }
+        public int id_role_permissions { get; set; }
+        public int id_role { get; set; }
+        public int id_permission { get; set; }
     
-        public virtual product product { get; set; }
-        public virtual sale sale { get; set; }
+        public virtual permission permission { get; set; }
+        public virtual role role { get; set; }
     }
 }

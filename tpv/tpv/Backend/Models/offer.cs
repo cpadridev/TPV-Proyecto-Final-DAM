@@ -17,11 +17,11 @@ namespace tpv.Backend.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public offer()
         {
+            this.customer_offers = new HashSet<customer_offers>();
             this.product = new HashSet<product>();
-            this.customer = new HashSet<customer>();
         }
     
-        public int idOffer { get; set; }
+        public int id_offer { get; set; }
         public string name { get; set; }
         public string description { get; set; }
         public System.DateTime period { get; set; }
@@ -29,8 +29,8 @@ namespace tpv.Backend.Models
         public Nullable<double> discount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<product> product { get; set; }
+        public virtual ICollection<customer_offers> customer_offers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<customer> customer { get; set; }
+        public virtual ICollection<product> product { get; set; }
     }
 }

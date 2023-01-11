@@ -17,19 +17,22 @@ namespace tpv.Backend.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public customer()
         {
+            this.customer_offers = new HashSet<customer_offers>();
             this.sale = new HashSet<sale>();
-            this.offer = new HashSet<offer>();
         }
     
-        public int idCustomer { get; set; }
+        public int id_customer { get; set; }
         public string name { get; set; }
         public string surnames { get; set; }
         public string email { get; set; }
         public string address { get; set; }
+        public string phone { get; set; }
+        public string city { get; set; }
+        public string zip_code { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<sale> sale { get; set; }
+        public virtual ICollection<customer_offers> customer_offers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<offer> offer { get; set; }
+        public virtual ICollection<sale> sale { get; set; }
     }
 }

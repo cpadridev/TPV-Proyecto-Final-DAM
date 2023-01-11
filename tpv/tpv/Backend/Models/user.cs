@@ -20,12 +20,17 @@ namespace tpv.Backend.Models
             this.sale = new HashSet<sale>();
         }
     
-        public int idUser { get; set; }
+        public int id_user { get; set; }
         public string name { get; set; }
         public string surnames { get; set; }
         public string username { get; set; }
         public string password { get; set; }
-        public int idRole { get; set; }
+        public string email { get; set; }
+        public string address { get; set; }
+        public string phone { get; set; }
+        public string city { get; set; }
+        public string zip_code { get; set; }
+        public int id_role { get; set; }
     
         public virtual role role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
