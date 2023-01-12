@@ -29,17 +29,17 @@
             <TextBlock Grid.Column="1" Text="Ventas" VerticalAlignment="Center" FontStyle="Italic" FontSize="16" Margin="20, 0, 0, 0" />
             <Menu Grid.Column="2">
                 <MenuItem Header="{mat:PackIcon Kind=ChartArc}">
-                    <MenuItem Header="Informes" Icon="{mat:PackIcon Kind=Package}" />
-                    <MenuItem Header="Gráficos" Icon="{mat:PackIcon Kind=Poll}" />
+                    <MenuItem Header="Informes" Icon="{mat:PackIcon Kind=Package}" x:Name="mniReports" Click="mniReports_Click" />
+                    <MenuItem Header="Gráficos" Icon="{mat:PackIcon Kind=Poll}" x:Name="mniGraphs" Click="mniGraphs_Click" />
                 </MenuItem>
 
                 <MenuItem Header="{mat:PackIcon Kind=Settings}" Visibility="Collapsed" x:Name="mniAdminSettings">
-                    <MenuItem Header="Devolver Ventas" Icon="{mat:PackIcon Kind=CashRefund}" Visibility="Collapsed" x:Name="mniReturnSales" />
-                    <MenuItem Header="Campañas Publicitarias" Icon="{mat:PackIcon Kind=Earth}" Visibility="Collapsed" x:Name="mniAdvertisingCampaings" />
-                    <MenuItem Header="Gestionar Usuarios" Icon="{mat:PackIcon Kind=AccountCog}" Visibility="Collapsed" x:Name="mniManageUsers" />
-                    <MenuItem Header="Editar Permisos" Icon="{mat:PackIcon Kind=AccountKey}" Visibility="Collapsed" x:Name="mniEditPermissions" />
-                    <MenuItem Header="Gestionar Contraseñas" Icon="{mat:PackIcon Kind=AccountLock}" Visibility="Collapsed" x:Name="mniManagePasswords" />
-                    <MenuItem Header="Editar Roles" Icon="{mat:PackIcon Kind=AccountGroup}" Visibility="Collapsed" x:Name="mniEditRoles" />
+                    <MenuItem Header="Devolver Ventas" Icon="{mat:PackIcon Kind=CashRefund}" Visibility="Collapsed" x:Name="mniReturnSales" Click="mniReturnSales_Click" />
+                    <MenuItem Header="Campañas Publicitarias" Icon="{mat:PackIcon Kind=Earth}" Visibility="Collapsed" x:Name="mniAdvertisingCampaings" Click="mniAdvertisingCampaings_Click" />
+                    <MenuItem Header="Gestionar Usuarios" Icon="{mat:PackIcon Kind=AccountCog}" Visibility="Collapsed" x:Name="mniManageUsers" Click="mniManageUsers_Click" />
+                    <MenuItem Header="Editar Permisos" Icon="{mat:PackIcon Kind=AccountKey}" Visibility="Collapsed" x:Name="mniEditPermissions" Click="mniEditPermissions_Click" />
+                    <MenuItem Header="Gestionar Contraseñas" Icon="{mat:PackIcon Kind=AccountLock}" Visibility="Collapsed" x:Name="mniManagePasswords" Click="mniManagePasswords_Click" />
+                    <MenuItem Header="Editar Roles" Icon="{mat:PackIcon Kind=AccountGroup}" Visibility="Collapsed" x:Name="mniEditRoles" Click="mniEditRoles_Click" />
                 </MenuItem>
                 <MenuItem>
                     <MenuItem.Header>

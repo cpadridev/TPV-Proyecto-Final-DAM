@@ -176,8 +176,8 @@ namespace tpv
                     Button btnProduct = new Button
                     {
                         Content = productsList[i].name,
-                        Height = 150,
-                        Width = 150,
+                        Height = 175,
+                        Width = 175,
                         Margin = new Thickness(10)
                     };
 
@@ -505,6 +505,46 @@ namespace tpv
 
             timer.Start();
             return task.Task;
+        }
+
+        private void mniReports_Click(object sender, RoutedEventArgs e)
+        {
+            // Dialog
+        }
+
+        private void mniGraphs_Click(object sender, RoutedEventArgs e)
+        {
+            // Dialog
+        }
+
+        private void mniReturnSales_Click(object sender, RoutedEventArgs e)
+        {
+            // Dialog
+        }
+
+        private void mniAdvertisingCampaings_Click(object sender, RoutedEventArgs e)
+        {
+            // Dialog
+        }
+
+        private void mniManageUsers_Click(object sender, RoutedEventArgs e)
+        {
+            // Dialog
+        }
+
+        private void mniEditPermissions_Click(object sender, RoutedEventArgs e)
+        {
+            // Dialog
+        }
+
+        private void mniManagePasswords_Click(object sender, RoutedEventArgs e)
+        {
+            // Dialog
+        }
+
+        private void mniEditRoles_Click(object sender, RoutedEventArgs e)
+        {
+            // Dialog
         }
     }
 }
