@@ -8,10 +8,7 @@
 //------------------------------------------------------------------------------
 
 namespace tpv.Backend.Models
-{
-    using System;
-    using System.Collections.Generic;
-    
+{    
     public partial class sale_details
     {
         public int id_sale_details { get; set; }

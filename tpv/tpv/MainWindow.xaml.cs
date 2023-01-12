@@ -42,6 +42,8 @@ namespace tpv
             userServ = new UserService(tpvEntities);
             mvSaleDetails = new MVSaleDetails();
             DataContext = mvSaleDetails;
+            this.AddHandler(Validation.ErrorEvent, new RoutedEventHandler(mvSaleDetails.OnErrorEvent));
+            mvSaleDetails.btnSave = btnContinue;
             txtUsername.Text = userLoggedIn.username;
             idProductPressed = 0;
             CheckPermissions();
@@ -49,62 +51,9 @@ namespace tpv
             ShowCategories();
         }
 
-        private void CreateNumbers()
-        {
-            for (int i = 0; i < 9; i++)
-            {
-                Button btnNumber = new Button
-                {
-                    Content = i + 1,
-                    Height = 80,
-                    Width = 80,
-                    Margin = new Thickness(2.5)
-                };
-
-                btnNumber.Click += btnNumber_Click;
-
-                Grid.SetColumn(btnNumber, i % 3);
-                Grid.SetRow(btnNumber, i / 3);
-
-                gridNumPad.Children.Add(btnNumber);
-            }
-        }
-
-        private void ShowCategories()
-        {
-            gridCategories.Children.Clear();
-            categoriesList = catServ.GetAll().ToList();
-            CreateRows(categoriesList.Count, gridCategories);
-
-            for (int i = 0; i < categoriesList.Count; i++)
-            {
-
-
-                Button btnCategory = new Button
-                {
-                    Content = categoriesList[i].name,
-                    Height = 70,
-                    Margin = new Thickness(7.5)
-                };
-
-                int idCategory = categoriesList[i].id_category;
-
-                btnCategory.Click += (s, e) =>
-                {
-                    ShowProducts(idCategory);
-                };
-
-                Grid.SetRow(btnCategory, i);
-
-                gridCategories.Children.Add(btnCategory);
-            }
-        }
-
         private void CheckPermissions()
         {
             List<permission> permissionsList = userServ.GetPermissionsByUser(userLoggedIn.id_user);
-
-            btnContinue.IsEnabled = false;
             mniReturnSales.Visibility = Visibility.Collapsed;
             btnAddProduct.Visibility = Visibility.Collapsed;
             btnModifyProduct.Visibility = Visibility.Collapsed;
@@ -158,9 +107,60 @@ namespace tpv
                 }
             }
 
-            if (counter == 0)
+            if (counter != 0)
             {
-                mniAdminSettings.Visibility = Visibility.Collapsed;
+                mniAdminSettings.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void CreateNumbers()
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                Button btnNumber = new Button
+                {
+                    Content = i + 1,
+                    Height = 80,
+                    Width = 80,
+                    Margin = new Thickness(2.5)
+                };
+
+                btnNumber.Click += btnNumber_Click;
+
+                Grid.SetColumn(btnNumber, i % 3);
+                Grid.SetRow(btnNumber, i / 3);
+
+                gridNumPad.Children.Add(btnNumber);
+            }
+        }
+
+        private void ShowCategories()
+        {
+            gridCategories.Children.Clear();
+            categoriesList = catServ.GetAll().ToList();
+            CreateRows(categoriesList.Count, gridCategories);
+
+            for (int i = 0; i < categoriesList.Count; i++)
+            {
+
+
+                Button btnCategory = new Button
+                {
+                    Content = categoriesList[i].name,
+                    Height = 70,
+                    Margin = new Thickness(7.5)
+                };
+
+                int idCategory = categoriesList[i].id_category;
+
+                btnCategory.Click += (s, e) =>
+                {
+                    ShowProducts(idCategory);
+                };
+
+                Grid.SetRow(btnCategory, i);
+
+                gridCategories.Children.Add(btnCategory);
             }
         }
 
@@ -264,7 +264,7 @@ namespace tpv
 
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
-
+            // Dialog
         }
 
         private void btnModifyProduct_Click(object sender, RoutedEventArgs e)
@@ -315,12 +315,12 @@ namespace tpv
 
         private void mniEditProfile_Click(object sender, RoutedEventArgs e)
         {
-
+            // Dialog
         }
 
         private void mniViewProfile_Click(object sender, RoutedEventArgs e)
         {
-
+            // Dialog
         }
 
         private void btnNumber_Click(object sender, RoutedEventArgs e)
@@ -458,6 +458,7 @@ namespace tpv
 
         private void dataGridSaleDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            btnContinue.IsEnabled = false;
             sale_details saleDetails = (sale_details)dataGridSaleDetails.SelectedItem;
 
             if (saleDetails != null)
@@ -471,6 +472,10 @@ namespace tpv
                     txbOfferProduct.Text = saleDetails.product.offer.discount.ToString();
                 }
                 txbTotalProduct.Text = (saleDetails.quantity * saleDetails.product.price).ToString();
+                if (userServ.GetPermissionsByUser(userLoggedIn.id_user).Find(r => r.id_permission == 1) != null)
+                {
+                    btnContinue.IsEnabled = true;
+                }
             }
         }
 

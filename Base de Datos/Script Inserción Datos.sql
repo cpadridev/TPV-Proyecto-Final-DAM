@@ -14,6 +14,7 @@ INSERT INTO `tpv`.`customer` (`id_customer`, `name`, `surnames`, `email`, `addre
 INSERT INTO `tpv`.`role` (`id_role`, `name`) VALUES ('1', 'Administrador');
 INSERT INTO `tpv`.`role` (`id_role`, `name`) VALUES ('2', 'Encargado');
 INSERT INTO `tpv`.`role` (`id_role`, `name`) VALUES ('3', 'Empleado');
+INSERT INTO `tpv`.`role` (`id_role`, `name`) VALUES ('4', 'Cliente');
 
 
 -- -----------------------------------------------------
@@ -22,6 +23,7 @@ INSERT INTO `tpv`.`role` (`id_role`, `name`) VALUES ('3', 'Empleado');
 INSERT INTO `tpv`.`user` (`id_user`, `name`, `surnames`, `username`, `password`, `id_role`) VALUES ('1', 'Admin', 'Admin', 'admin', 'admin', 1);
 INSERT INTO `tpv`.`user` (`id_user`, `name`, `surnames`, `username`, `password`, `id_role`) VALUES ('2', 'Encargado', 'Encargado', 'encargado', 'encargado', '2');
 INSERT INTO `tpv`.`user` (`id_user`, `name`, `surnames`, `username`, `password`, `id_role`) VALUES ('3', 'Empleado', 'Empleado', 'empleado', 'empleado', '3');
+INSERT INTO `tpv`.`user` (`id_user`, `name`, `surnames`, `username`, `password`, `id_role`) VALUES ('3', 'Cliente', 'Cliente', 'cliente', 'cliente', '4');
 
 
 -- -----------------------------------------------------

@@ -33,13 +33,13 @@
                     <MenuItem Header="Gráficos" Icon="{mat:PackIcon Kind=Poll}" />
                 </MenuItem>
 
-                <MenuItem Header="{mat:PackIcon Kind=Settings}" x:Name="mniAdminSettings">
-                    <MenuItem Header="Devolver Ventas" Icon="{mat:PackIcon Kind=CashRefund}" x:Name="mniReturnSales" />
-                    <MenuItem Header="Campañas Publicitarias" Icon="{mat:PackIcon Kind=Earth}" x:Name="mniAdvertisingCampaings" />
-                    <MenuItem Header="Gestionar Usuarios" Icon="{mat:PackIcon Kind=AccountCog}" x:Name="mniManageUsers" />
-                    <MenuItem Header="Editar Permisos" Icon="{mat:PackIcon Kind=AccountKey}" x:Name="mniEditPermissions" />
-                    <MenuItem Header="Gestionar Contraseñas" Icon="{mat:PackIcon Kind=AccountLock}" x:Name="mniManagePasswords" />
-                    <MenuItem Header="Editar Roles" Icon="{mat:PackIcon Kind=AccountGroup}" x:Name="mniEditRoles" />
+                <MenuItem Header="{mat:PackIcon Kind=Settings}" Visibility="Collapsed" x:Name="mniAdminSettings">
+                    <MenuItem Header="Devolver Ventas" Icon="{mat:PackIcon Kind=CashRefund}" Visibility="Collapsed" x:Name="mniReturnSales" />
+                    <MenuItem Header="Campañas Publicitarias" Icon="{mat:PackIcon Kind=Earth}" Visibility="Collapsed" x:Name="mniAdvertisingCampaings" />
+                    <MenuItem Header="Gestionar Usuarios" Icon="{mat:PackIcon Kind=AccountCog}" Visibility="Collapsed" x:Name="mniManageUsers" />
+                    <MenuItem Header="Editar Permisos" Icon="{mat:PackIcon Kind=AccountKey}" Visibility="Collapsed" x:Name="mniEditPermissions" />
+                    <MenuItem Header="Gestionar Contraseñas" Icon="{mat:PackIcon Kind=AccountLock}" Visibility="Collapsed" x:Name="mniManagePasswords" />
+                    <MenuItem Header="Editar Roles" Icon="{mat:PackIcon Kind=AccountGroup}" Visibility="Collapsed" x:Name="mniEditRoles" />
                 </MenuItem>
                 <MenuItem>
                     <MenuItem.Header>
@@ -74,9 +74,9 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="{mat:PackIcon Kind=Plus}" Height="60" Width="60" Margin="10, 10, 10, 10" x:Name="btnAddProduct" Click="btnAddProduct_Click" />
-                <Button Grid.Column="1" Content="{mat:PackIcon Kind=Settings}" Height="60" Width="60" Margin="0, 10, 0, 10" x:Name="btnModifyProduct" Click="btnModifyProduct_Click" />
-                <Button Grid.Column="2" Content="{mat:PackIcon Kind=Minus}" Height="60" Width="60" Margin="10, 10, 10, 10" x:Name="btnDeleteProduct" Click="btnDeleteProduct_Click" />
+                <Button Grid.Column="0" Content="{mat:PackIcon Kind=Plus}" Visibility="Collapsed" Height="60" Width="60" Margin="10, 10, 10, 10" x:Name="btnAddProduct" Click="btnAddProduct_Click" />
+                <Button Grid.Column="1" Content="{mat:PackIcon Kind=Settings}" Visibility="Collapsed" Height="60" Width="60" Margin="0, 10, 0, 10" x:Name="btnModifyProduct" Click="btnModifyProduct_Click" />
+                <Button Grid.Column="2" Content="{mat:PackIcon Kind=Minus}" Visibility="Collapsed" Height="60" Width="60" Margin="10, 10, 10, 10" x:Name="btnDeleteProduct" Click="btnDeleteProduct_Click" />
                 <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <TextBlock Text="Producto Seleccionado:" />
                     <TextBlock Text="Ninguno" Margin="10, 0, 20, 0" x:Name="txtProductSelected" />
@@ -175,7 +175,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Button Grid.Row="0" Content="Borrar Lista" Height="80" Width="200" Margin="60" x:Name="btnDeleteList" Click="btnDeleteList_Click" />
-                    <Button Grid.Row="1" Content="Continuar" Height="80" Width="200" Margin="60" x:Name="btnContinue" Click="btnContinue_Click" />
+                    <Button Grid.Row="1" Content="Continuar" Height="80" Width="200" Margin="60" IsEnabled="False" x:Name="btnContinue" Click="btnContinue_Click" />
                 </Grid>
             </Grid>
         </Grid>
