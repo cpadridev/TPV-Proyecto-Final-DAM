@@ -159,84 +159,101 @@ namespace tpv
 
             for (int i = 0; i < productsList.Count; i++)
             {
-                if (productsList[i].quantity != 0)
+                Grid grid = new Grid();
+                CreateRows(3, grid);
+
+                TextBlock tx = new TextBlock
                 {
-                    Button btnProduct = new Button
+                    Text = productsList[i].name,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                Grid.SetRow(tx, 0);
+                grid.Children.Add(tx);
+
+                if (productsList[i].image != null)
+                {
+                    Image img = new Image
                     {
-                        Content = productsList[i].name,
-                        Height = 175,
-                        Width = 175,
-                        Margin = new Thickness(10)
+                        Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(new Bitmap((Bitmap)new ImageConverter().ConvertFrom(productsList[i].image)).GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()),
+                        Height = 130,
+                        Width = 130
                     };
 
-                    if (productsList[i].image != null)
-                    {
-                        StackPanel stackPanel = new StackPanel
-                        {
-                            Orientation = System.Windows.Controls.Orientation.Vertical,
-                            Children =
-                        {
-                            new TextBlock
-                            {
-                                Text = productsList[i].name,
-                                Margin = new Thickness(0, 0, 0, 10),
-                                HorizontalAlignment = HorizontalAlignment.Center,
-                            },
-                            new Image
-                            {
-                                Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(new Bitmap((Bitmap)new ImageConverter().ConvertFrom(productsList[i].image)).GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions())
-                            }
-                        }
-                        };
+                    Grid.SetRow(img, 1);
+                    grid.Children.Add(img);
+                }
 
-                        btnProduct.Content = stackPanel;
+                TextBlock tx2 = new TextBlock
+                {
+                    Text = "Stock: " + productsList[i].quantity.ToString(),
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                Grid.SetRow(tx2, 2);
+                grid.Children.Add(tx2);
+
+                Button btnProduct = new Button
+                {
+                    Content = grid,
+                    Height = 175,
+                    Width = 175,
+                    Margin = new Thickness(10)
+                };
+
+                product product = productsList[i];
+
+                btnProduct.Click += (s, e) =>
+                {
+                    sale_details saleDetail = new sale_details();
+
+                    saleDetail.product = product;
+                    saleDetail.quantity = 1;
+                    saleDetail.price = product.price;
+
+                    if (product.offer != null)
+                    {
+                        saleDetail.price = product.price - (double)(product.price * (product.offer.discount / 100));
                     }
 
-                    product product = productsList[i];
-
-                    btnProduct.Click += (s, e) =>
+                    if (!mvSaleDetails.newSaleDetails.Any(d => d.product == saleDetail.product))
                     {
-                        sale_details saleDetail = new sale_details();
+                        mvSaleDetails.newSaleDetails.Add(saleDetail);
 
-                        saleDetail.product = product;
-                        saleDetail.quantity = 1;
-                        saleDetail.price = product.price;
-
-                        if (product.offer != null)
+                        if (!string.IsNullOrEmpty(txbTotal.Text))
                         {
-                            saleDetail.price = product.price - (double)(product.price * (product.offer.discount / 100));
+                            txbTotal.Text = ((double.Parse(txbTotal.Text)) + saleDetail.price).ToString();
+                        }
+                        else
+                        {
+                            txbTotal.Text = saleDetail.price.ToString();
                         }
 
-                        if (!mvSaleDetails.newSaleDetails.Any(d => d.product == saleDetail.product))
-                        {
-                            mvSaleDetails.newSaleDetails.Add(saleDetail);
+                        dataGridSaleDetails.Items.Refresh();
+                        dataGridSaleDetails.SelectedItem = saleDetail;
+                        dataGridSaleDetails.Focus();
+                    }
+                };
 
-                            if (!string.IsNullOrEmpty(txbTotal.Text))
-                            {
-                                txbTotal.Text = ((double.Parse(txbTotal.Text)) + saleDetail.price).ToString();
-                            }
-                            else
-                            {
-                                txbTotal.Text = saleDetail.price.ToString();
-                            }
-
-                            dataGridSaleDetails.Items.Refresh();
-                            dataGridSaleDetails.SelectedItem = saleDetail;
-                            dataGridSaleDetails.Focus();
-                        }
-                    };
-
-                    btnProduct.PreviewMouseDown += async (s, e) =>
+                btnProduct.PreviewMouseDown += async (s, e) =>
+                {
+                    if (await TouchHold(btnProduct, TimeSpan.FromSeconds(1.5)))
                     {
-                        if (await TouchHold(btnProduct, TimeSpan.FromSeconds(1.5)))
-                        {
-                            txtProductSelected.Text = product.name;
-                            idProductPressed = product.id_product;
-                        }
-                    };
+                        txtProductSelected.Text = product.name;
+                        idProductPressed = product.id_product;
+                    }
+                };
 
-                    wrapPanelProducts.Children.Add(btnProduct);
+                int quantity = productsList[i].quantity;
+
+                if (quantity == 0)
+                {
+                    btnProduct.IsEnabled = false;
                 }
+
+                wrapPanelProducts.Children.Add(btnProduct);
             }
         }
 
