@@ -9,9 +9,6 @@
 
 namespace tpv.Backend.Models
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class role_permissions
     {
         public int id_role_permissions { get; set; }

@@ -232,10 +232,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Icons\" />
+    <Folder Include="Resources\Images\" />
     <Folder Include="Resources\Styles\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\fondo.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
