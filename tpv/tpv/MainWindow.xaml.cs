@@ -70,9 +70,6 @@ namespace tpv
             {
                 switch (p.id_permission)
                 {
-                    case 1:
-                        btnContinue.IsEnabled = true;
-                        break;
                     case 2:
                         mniReturnSales.Visibility = Visibility.Visible;
                         counter++;
