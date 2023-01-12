@@ -54,15 +54,6 @@ namespace tpv
         private void CheckPermissions()
         {
             List<permission> permissionsList = userServ.GetPermissionsByUser(userLoggedIn.id_user);
-            mniReturnSales.Visibility = Visibility.Collapsed;
-            btnAddProduct.Visibility = Visibility.Collapsed;
-            btnModifyProduct.Visibility = Visibility.Collapsed;
-            btnDeleteProduct.Visibility = Visibility.Collapsed;
-            mniAdvertisingCampaings.Visibility = Visibility.Collapsed;
-            mniManageUsers.Visibility = Visibility.Collapsed;
-            mniEditPermissions.Visibility = Visibility.Collapsed;
-            mniManagePasswords.Visibility = Visibility.Collapsed;
-            mniEditRoles.Visibility = Visibility.Collapsed;
 
             int counter = 0;
 
