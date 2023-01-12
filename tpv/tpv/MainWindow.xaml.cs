@@ -287,11 +287,7 @@ namespace tpv
 
         private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
-            if (mvSaleDetails.newSaleDetails.Count != 0)
-            {
-                /*MakePurchaseDialogMVVM dialog = new MakePurchaseDialogMVVM(tpvEnt, mvSaleDetails.newSaleDetails, userLoggedIn, double.Parse(txbTotal.Text));
-                dialog.Show();*/
-            }
+            // Dialog
         }
 
         private void mniLogout_Click(object sender, RoutedEventArgs e)
