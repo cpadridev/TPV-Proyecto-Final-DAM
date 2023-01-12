@@ -20,8 +20,7 @@ USE `tpv` ;
 CREATE TABLE IF NOT EXISTS `tpv`.`category` (
   `id_category` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_category`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
+  PRIMARY KEY (`id_category`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -88,8 +87,7 @@ DEFAULT CHARACTER SET = latin1;
 CREATE TABLE IF NOT EXISTS `tpv`.`location` (
   `id_location` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_location`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
+  PRIMARY KEY (`id_location`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -121,7 +119,6 @@ CREATE TABLE IF NOT EXISTS `tpv`.`product` (
   `id_location` INT(11) NOT NULL,
   `id_offer` INT(11) NULL,
   PRIMARY KEY (`id_product`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC),
   INDEX `fk_product_offer1_idx` (`id_offer` ASC),
   INDEX `fk_product_category1_idx` (`id_category` ASC),
   INDEX `fk_product_location1_idx` (`id_location` ASC),
@@ -150,8 +147,7 @@ DEFAULT CHARACTER SET = latin1;
 CREATE TABLE IF NOT EXISTS `tpv`.`role` (
   `id_role` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_role`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
+  PRIMARY KEY (`id_role`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -196,7 +192,6 @@ CREATE TABLE IF NOT EXISTS `tpv`.`user` (
   `zip_code` VARCHAR(10) NULL,
   `id_role` INT(11) NOT NULL,
   PRIMARY KEY (`id_user`),
-  UNIQUE INDEX `login_UNIQUE` (`username` ASC),
   INDEX `fk_user_role1_idx` (`id_role` ASC),
   CONSTRAINT `fk_user_role1`
     FOREIGN KEY (`id_role`)
