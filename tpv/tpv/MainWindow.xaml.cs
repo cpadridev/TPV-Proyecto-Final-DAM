@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows;
@@ -24,7 +25,6 @@ namespace tpv
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private user userLoggedIn;
         private UserService userServ;
         private CategoryService catServ;
         private ProductService prodServ;
@@ -35,15 +35,16 @@ namespace tpv
         public MainWindow(tpvEntities tpvEntities, user user)
         {
             InitializeComponent();
-            userLoggedIn = user;
             catServ = new CategoryService(tpvEntities);
             prodServ = new ProductService(tpvEntities);
             userServ = new UserService(tpvEntities);
             mvSaleDetails = new MVSaleDetails();
             DataContext = mvSaleDetails;
-            this.AddHandler(Validation.ErrorEvent, new RoutedEventHandler(mvSaleDetails.OnErrorEvent));
-            mvSaleDetails.btnSave = btnContinue;
-            txtUsername.Text = userLoggedIn.username;
+            userServ.userLoggedIn = user;
+            txtUsername.Text = userServ.userLoggedIn.username;
+            // Comprobar stock y aplicar stock
+            // Comprobar fecha de caducidad y aplicar oferta
+            // Comprobar temporada y aplicar oferta
             CheckPermissions();
             CreateNumbers();
             ShowCategories();
@@ -51,7 +52,7 @@ namespace tpv
 
         private void CheckPermissions()
         {
-            List<permission> permissionsList = userServ.GetPermissionsByUser(userLoggedIn.id_user);
+            List<permission> permissionsList = userServ.GetPermissionsByUser(userServ.userLoggedIn.id_user);
 
             int counter = 0;
 
@@ -60,7 +61,7 @@ namespace tpv
                 switch (p.id_permission)
                 {
                     case 2:
-                        mniReturnSales.Visibility = Visibility.Visible;
+                        mniModifySales.Visibility = Visibility.Visible;
                         counter++;
                         break;
                     case 3:
@@ -68,7 +69,6 @@ namespace tpv
                         break;
                     case 4:
                         btnModifyProduct.Visibility = Visibility.Visible;
-                        btnDeleteProduct.Visibility = Visibility.Visible;
                         break;
                     case 5:
                         mniAdvertisingCampaings.Visibility = Visibility.Visible;
@@ -265,12 +265,22 @@ namespace tpv
             }
         }
 
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            if ((sale_details)dataGridSaleDetails.SelectedItem != null)
+            {
+                Regex regex = new Regex("[^0-9]+");
+                e.Handled = regex.IsMatch(e.Text);
+            }
+        }
+
         private void btnDeleteList_Click(object sender, RoutedEventArgs e)
         {
             mvSaleDetails.newSaleDetails.Clear();
 
             dataGridSaleDetails.Items.Refresh();
 
+            btnDeleteList.IsEnabled = false;
             txbTotal.Text = "0€";
             txbNameProduct.Text = string.Empty;
             txbQuantityProduct.Text = string.Empty;
@@ -282,9 +292,7 @@ namespace tpv
 
         private void btnNumber_Click(object sender, RoutedEventArgs e)
         {
-            sale_details saleDetails = (sale_details)dataGridSaleDetails.SelectedItem;
-
-            if (saleDetails != null)
+            if ((sale_details)dataGridSaleDetails.SelectedItem != null)
             {
                 Button btn = (Button)sender;
 
@@ -309,13 +317,16 @@ namespace tpv
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            if ((sale_details)dataGridSaleDetails.SelectedItem != null && txbQuantityProduct.Text.Length > 1)
+            if ((sale_details)dataGridSaleDetails.SelectedItem != null)
             {
-                txbQuantityProduct.Text = txbQuantityProduct.Text.Remove(txbQuantityProduct.Text.Length - 1);
-            }
-            else
-            {
-                txbQuantityProduct.Text = "0";
+                if (txbQuantityProduct.Text.Length > 1)
+                {
+                    txbQuantityProduct.Text = txbQuantityProduct.Text.Remove(txbQuantityProduct.Text.Length - 1);
+                }
+                else
+                {
+                    txbQuantityProduct.Text = "0";
+                }
             }
         }
 
@@ -426,6 +437,7 @@ namespace tpv
         private void dataGridSaleDetails_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             btnContinue.IsEnabled = false;
+            txbQuantityProduct.IsReadOnly = true;
             sale_details saleDetails = (sale_details)dataGridSaleDetails.SelectedItem;
 
             if (saleDetails != null)
@@ -436,6 +448,7 @@ namespace tpv
                 txbPriceProduct.Text = saleDetails.product.price + "€";
                 txbIvaProduct.Text = "0%";
                 txbOfferProduct.Text = string.Empty;
+                txbQuantityProduct.IsReadOnly = false;
                 if (saleDetails.product.iva != null)
                 {
                     txbIvaProduct.Text = saleDetails.product.iva.ToString() + "%";
@@ -445,7 +458,7 @@ namespace tpv
                     txbOfferProduct.Text = saleDetails.product.offer.discount.ToString() + "%";
                 }
                 txbTotalProduct.Text = saleDetails.price + "€";
-                if (userServ.GetPermissionsByUser(userLoggedIn.id_user).Find(r => r.id_permission == 1) != null)
+                if (userServ.GetPermissionsByUser(userServ.userLoggedIn.id_user).Find(r => r.id_permission == 1) != null)
                 {
                     btnContinue.IsEnabled = true;
                 }
@@ -458,11 +471,6 @@ namespace tpv
         }
 
         private void btnModifyProduct_Click(object sender, RoutedEventArgs e)
-        {
-            // Dialog
-        }
-
-        private void btnDeleteProduct_Click(object sender, RoutedEventArgs e)
         {
             // Dialog
         }
@@ -484,11 +492,6 @@ namespace tpv
             // Dialog
         }
 
-        private void mniViewProfile_Click(object sender, RoutedEventArgs e)
-        {
-            // Dialog
-        }
-
         private void mniReports_Click(object sender, RoutedEventArgs e)
         {
             // Dialog
@@ -499,32 +502,12 @@ namespace tpv
             // Dialog
         }
 
-        private void mniReturnSales_Click(object sender, RoutedEventArgs e)
+        private void mniModifySales_Click(object sender, RoutedEventArgs e)
         {
             // Dialog
         }
 
         private void mniAdvertisingCampaings_Click(object sender, RoutedEventArgs e)
-        {
-            // Dialog
-        }
-
-        private void mniManageUsers_Click(object sender, RoutedEventArgs e)
-        {
-            // Dialog
-        }
-
-        private void mniEditPermissions_Click(object sender, RoutedEventArgs e)
-        {
-            // Dialog
-        }
-
-        private void mniManagePasswords_Click(object sender, RoutedEventArgs e)
-        {
-            // Dialog
-        }
-
-        private void mniEditRoles_Click(object sender, RoutedEventArgs e)
         {
             // Dialog
         }

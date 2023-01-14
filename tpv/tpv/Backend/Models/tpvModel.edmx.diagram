@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8a5add04429c4e60a7360b7ffd460bc6" Name="Diagram1">
+      <Diagram DiagramId="57617aa1f1124146a7956fce23b295cc" Name="Diagram1">
         <EntityTypeShape EntityType="tpvModel.category" Width="1.5" PointX="3.75" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="tpvModel.customer" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="tpvModel.customer_offers" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="tpvModel.location" Width="1.5" PointX="3.75" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="tpvModel.offer" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="tpvModel.permission" Width="1.5" PointX="1.5" PointY="16.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="tpvModel.product" Width="1.5" PointX="6" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="tpvModel.product" Width="1.5" PointX="6" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="tpvModel.role" Width="1.5" PointX="1.5" PointY="12.375" IsExpanded="true" />
         <EntityTypeShape EntityType="tpvModel.role_permissions" Width="1.5" PointX="3.75" PointY="16.25" IsExpanded="true" />
         <EntityTypeShape EntityType="tpvModel.sale" Width="1.5" PointX="6" PointY="11.75" IsExpanded="true" />

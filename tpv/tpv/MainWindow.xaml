@@ -29,17 +29,17 @@
             <TextBlock Grid.Column="1" Text="Ventas" VerticalAlignment="Center" FontStyle="Italic" FontSize="16" Margin="20, 0, 0, 0" />
             <Menu Grid.Column="2">
                 <MenuItem Header="{mat:PackIcon Kind=ChartArc}">
-                    <MenuItem Header="Informes" Icon="{mat:PackIcon Kind=Package}" x:Name="mniReports" Click="mniReports_Click" />
+                    <MenuItem Header="Informes" Icon="{mat:PackIcon Kind=FileChart}" x:Name="mniReports" Click="mniReports_Click" />
                     <MenuItem Header="Gráficos" Icon="{mat:PackIcon Kind=Poll}" x:Name="mniGraphs" Click="mniGraphs_Click" />
                 </MenuItem>
 
                 <MenuItem Header="{mat:PackIcon Kind=Settings}" Visibility="Collapsed" x:Name="mniAdminSettings">
-                    <MenuItem Header="Devolver Ventas" Icon="{mat:PackIcon Kind=CashRefund}" Visibility="Collapsed" x:Name="mniReturnSales" Click="mniReturnSales_Click" />
+                    <MenuItem Header="Modificar Ventas" Icon="{mat:PackIcon Kind=CashRefund}" Visibility="Collapsed" x:Name="mniModifySales" Click="mniModifySales_Click" />
                     <MenuItem Header="Campañas Publicitarias" Icon="{mat:PackIcon Kind=Earth}" Visibility="Collapsed" x:Name="mniAdvertisingCampaings" Click="mniAdvertisingCampaings_Click" />
-                    <MenuItem Header="Gestionar Usuarios" Icon="{mat:PackIcon Kind=AccountCog}" Visibility="Collapsed" x:Name="mniManageUsers" Click="mniManageUsers_Click" />
-                    <MenuItem Header="Editar Permisos" Icon="{mat:PackIcon Kind=AccountKey}" Visibility="Collapsed" x:Name="mniEditPermissions" Click="mniEditPermissions_Click" />
-                    <MenuItem Header="Gestionar Contraseñas" Icon="{mat:PackIcon Kind=AccountLock}" Visibility="Collapsed" x:Name="mniManagePasswords" Click="mniManagePasswords_Click" />
-                    <MenuItem Header="Editar Roles" Icon="{mat:PackIcon Kind=AccountGroup}" Visibility="Collapsed" x:Name="mniEditRoles" Click="mniEditRoles_Click" />
+                    <MenuItem Header="Gestionar Usuarios" Icon="{mat:PackIcon Kind=AccountCog}" Visibility="Collapsed" x:Name="mniManageUsers" />
+                    <MenuItem Header="Editar Permisos" Icon="{mat:PackIcon Kind=AccountKey}" Visibility="Collapsed" x:Name="mniEditPermissions" />
+                    <MenuItem Header="Gestionar Contraseñas" Icon="{mat:PackIcon Kind=AccountLock}" Visibility="Collapsed" x:Name="mniManagePasswords" />
+                    <MenuItem Header="Editar Roles" Icon="{mat:PackIcon Kind=AccountGroup}" Visibility="Collapsed" x:Name="mniEditRoles" />
                 </MenuItem>
                 <MenuItem>
                     <MenuItem.Header>
@@ -48,8 +48,7 @@
                             <mat:PackIcon Kind="AccountCircle" VerticalAlignment="Center" />
                         </StackPanel>
                     </MenuItem.Header>
-                    <MenuItem Header="Ver perfil" Icon="{mat:PackIcon Kind=Account}" x:Name="mniViewProfile" Click="mniViewProfile_Click" />
-                    <MenuItem Header="Editar perfil" Icon="{mat:PackIcon Kind=Settings}" x:Name="mniEditProfile" Click="mniEditProfile_Click" />
+                    <MenuItem Header="Editar perfil" Icon="{mat:PackIcon Kind=AccountEdit}" x:Name="mniEditProfile" Click="mniEditProfile_Click" />
                     <MenuItem Header="Cerrar Sesión" Icon="{mat:PackIcon Kind=Logout}" x:Name="mniLogout" Click="mniLogout_Click" />
                 </MenuItem>
             </Menu>
@@ -75,7 +74,6 @@
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Content="{mat:PackIcon Kind=Plus}" Visibility="Collapsed" Height="60" Width="60" Margin="10, 10, 10, 10" x:Name="btnAddProduct" Click="btnAddProduct_Click" />
                 <Button Grid.Column="1" Content="{mat:PackIcon Kind=Settings}" Visibility="Collapsed" Height="60" Width="60" Margin="0, 10, 0, 10" x:Name="btnModifyProduct" Click="btnModifyProduct_Click" />
-                <Button Grid.Column="2" Content="{mat:PackIcon Kind=Minus}" Visibility="Collapsed" Height="60" Width="60" Margin="10, 10, 10, 10" x:Name="btnDeleteProduct" Click="btnDeleteProduct_Click" />
             </Grid>
         </Grid>
 
@@ -116,7 +114,7 @@
                         </StackPanel>
                         <StackPanel Grid.Column="1" Margin="0, 0, 15, 0"  Orientation="Horizontal">
                             <TextBlock Text="Cantidad:" VerticalAlignment="Center" />
-                            <TextBox Width="40" TextAlignment="Center" VerticalAlignment="Center" IsReadOnly="True" Margin="10, 0, 0, 0" x:Name="txbQuantityProduct" />
+                            <TextBox Width="40" TextAlignment="Center" VerticalAlignment="Center" Margin="10, 0, 0, 0" IsReadOnly="True" x:Name="txbQuantityProduct" PreviewTextInput="NumberValidationTextBox" />
                         </StackPanel>
                         <StackPanel Grid.Column="2" Margin="0, 0, 15, 0"  Orientation="Horizontal">
                             <TextBlock Text="Precio:" VerticalAlignment="Center" />

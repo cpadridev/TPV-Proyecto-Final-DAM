@@ -70,6 +70,9 @@
           <ScalarProperty Name="price" ColumnName="price" />
           <ScalarProperty Name="iva" ColumnName="iva" />
           <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="expiration_date" ColumnName="expiration_date" />
+          <ScalarProperty Name="start_season" ColumnName="start_season" />
+          <ScalarProperty Name="end_season" ColumnName="end_season" />
           <ScalarProperty Name="id_category" ColumnName="id_category" />
           <ScalarProperty Name="id_location" ColumnName="id_location" />
           <ScalarProperty Name="id_offer" ColumnName="id_offer" />

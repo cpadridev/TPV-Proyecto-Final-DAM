@@ -75,6 +75,9 @@
     <Property Name="price" Type="Double" Nullable="false" />
     <Property Name="iva" Type="Int32" />
     <Property Name="quantity" Type="Int32" Nullable="false" />
+    <Property Name="expiration_date" Type="DateTime" />
+    <Property Name="start_season" Type="DateTime" />
+    <Property Name="end_season" Type="DateTime" />
     <Property Name="id_category" Type="Int32" Nullable="false" />
     <Property Name="id_location" Type="Int32" Nullable="false" />
     <Property Name="id_offer" Type="Int32" />

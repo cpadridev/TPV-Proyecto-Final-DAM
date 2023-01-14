@@ -27,6 +27,9 @@ namespace tpv.Backend.Models
         public double price { get; set; }
         public Nullable<int> iva { get; set; }
         public int quantity { get; set; }
+        public Nullable<System.DateTime> expiration_date { get; set; }
+        public Nullable<System.DateTime> start_season { get; set; }
+        public Nullable<System.DateTime> end_season { get; set; }
         public int id_category { get; set; }
         public int id_location { get; set; }
         public Nullable<int> id_offer { get; set; }

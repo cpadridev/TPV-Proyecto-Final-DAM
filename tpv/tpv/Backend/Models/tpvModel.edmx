@@ -71,6 +71,9 @@
           <Property Name="price" Type="double" Nullable="false" />
           <Property Name="iva" Type="int" />
           <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="expiration_date" Type="date" />
+          <Property Name="start_season" Type="date" />
+          <Property Name="end_season" Type="date" />
           <Property Name="id_category" Type="int" Nullable="false" />
           <Property Name="id_location" Type="int" Nullable="false" />
           <Property Name="id_offer" Type="int" />
@@ -418,6 +421,9 @@
           <Property Name="price" Type="Double" Nullable="false" />
           <Property Name="iva" Type="Int32" />
           <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="expiration_date" Type="DateTime" />
+          <Property Name="start_season" Type="DateTime" />
+          <Property Name="end_season" Type="DateTime" />
           <Property Name="id_category" Type="Int32" Nullable="false" />
           <Property Name="id_location" Type="Int32" Nullable="false" />
           <Property Name="id_offer" Type="Int32" />
@@ -775,6 +781,9 @@
                 <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="iva" ColumnName="iva" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="expiration_date" ColumnName="expiration_date" />
+                <ScalarProperty Name="start_season" ColumnName="start_season" />
+                <ScalarProperty Name="end_season" ColumnName="end_season" />
                 <ScalarProperty Name="id_category" ColumnName="id_category" />
                 <ScalarProperty Name="id_location" ColumnName="id_location" />
                 <ScalarProperty Name="id_offer" ColumnName="id_offer" />
