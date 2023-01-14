@@ -208,33 +208,38 @@ namespace tpv
 
                 btnProduct.Click += (s, e) =>
                 {
-                    sale_details saleDetail = new sale_details();
+                    sale_details saleDetails = new sale_details();
 
-                    saleDetail.product = product;
-                    saleDetail.product.price = Math.Round(product.price, 2);
-                    saleDetail.quantity = 1;
-                    saleDetail.price = product.price;
+                    saleDetails.product = product;
+                    saleDetails.product.price = Math.Round(product.price, 2);
+                    saleDetails.quantity = 1;
+                    saleDetails.price = product.price;
 
                     if (product.offer != null && product.offer.discount != null)
                     {
-                        saleDetail.price = Math.Round(product.price - (double)(product.price * (product.offer.discount / 100)), 2);
+                        saleDetails.price = Math.Round(saleDetails.price - (double)(product.price * (product.offer.discount / 100)), 2);
                     }
 
-                    if (!mvSaleDetails.newSaleDetails.Any(d => d.product == saleDetail.product))
+                    if (product.iva != null)
                     {
-                        mvSaleDetails.newSaleDetails.Add(saleDetail);
+                        saleDetails.price = Math.Round(saleDetails.price + (double)(saleDetails.price * product.iva / 100), 2);
+                    }
+
+                    if (!mvSaleDetails.newSaleDetails.Any(d => d.product == saleDetails.product))
+                    {
+                        mvSaleDetails.newSaleDetails.Add(saleDetails);
 
                         if (!string.IsNullOrEmpty(txbTotal.Text))
                         {
-                            txbTotal.Text = Math.Round(double.Parse(txbTotal.Text) + saleDetail.price, 2).ToString();
+                            txbTotal.Text = Math.Round(double.Parse(txbTotal.Text.Remove(txbTotal.Text.Length - 1)) + saleDetails.price, 2).ToString() + "€";
                         }
                         else
                         {
-                            txbTotal.Text = Math.Round(saleDetail.price, 2).ToString();
+                            txbTotal.Text = saleDetails.price + "€";
                         }
 
                         dataGridSaleDetails.Items.Refresh();
-                        dataGridSaleDetails.SelectedItem = saleDetail;
+                        dataGridSaleDetails.SelectedItem = saleDetails;
                         dataGridSaleDetails.Focus();
                     }
                 };
@@ -266,10 +271,11 @@ namespace tpv
 
             dataGridSaleDetails.Items.Refresh();
 
-            txbTotal.Text = string.Empty;
+            txbTotal.Text = "0€";
             txbNameProduct.Text = string.Empty;
             txbQuantityProduct.Text = string.Empty;
             txbPriceProduct.Text = string.Empty;
+            txbIvaProduct.Text = string.Empty;
             txbOfferProduct.Text = string.Empty;
             txbTotalProduct.Text = string.Empty;
         }
@@ -347,25 +353,29 @@ namespace tpv
                 if (int.Parse(txbQuantityProduct.Text) > saleDetails.product.quantity)
                 {
                     saleDetails.quantity = saleDetails.product.quantity;
-                    txbQuantityProduct.Text = saleDetails.product.quantity.ToString();
                 }
 
-                saleDetails.price = Math.Round(saleDetails.quantity * saleDetails.product.price, 2);
+                txbQuantityProduct.Text = saleDetails.quantity.ToString();
 
-                sale_details sale = mvSaleDetails.newSaleDetails.FirstOrDefault(s => s == saleDetails);
+                saleDetails.price = saleDetails.product.price;
 
-                sale.quantity = int.Parse(txbQuantityProduct.Text);
-
-                if (int.Parse(txbQuantityProduct.Text) > saleDetails.product.quantity)
+                if (saleDetails.product.offer != null && saleDetails.product.offer.discount != null)
                 {
-                    sale.quantity = saleDetails.product.quantity;
+                    saleDetails.price = Math.Round(saleDetails.price - (double)(saleDetails.product.price * (saleDetails.product.offer.discount / 100)), 2);
                 }
+
+                if (saleDetails.product.iva != null)
+                {
+                    saleDetails.price = Math.Round(saleDetails.price + (double)(saleDetails.price * saleDetails.product.iva / 100), 2);
+                }
+
+                saleDetails.price = Math.Round(saleDetails.price * saleDetails.quantity, 2);
 
                 dataGridSaleDetails.Items.Refresh();
                 dataGridSaleDetails.SelectedItem = saleDetails;
 
-                txbTotalProduct.Text = Math.Round(saleDetails.price, 2).ToString();
-                txbTotal.Text = Math.Round(double.Parse(txbTotal.Text) - pastPrice + (saleDetails.quantity * saleDetails.product.price), 2).ToString();
+                txbTotalProduct.Text = saleDetails.price.ToString() + "€";
+                txbTotal.Text = Math.Round(double.Parse(txbTotal.Text.Remove(txbTotal.Text.Length - 1)) - pastPrice + saleDetails.price, 2).ToString() + "€";
             }
         }
 
@@ -384,25 +394,31 @@ namespace tpv
                     dataGridSaleDetails.SelectedItem = lastitem;
                     dataGridSaleDetails.ScrollIntoView(lastitem);
                     dataGridSaleDetails.Focus();
-                    txbTotal.Text = Math.Round(double.Parse(txbTotal.Text) - Math.Round(saleDetails.quantity * saleDetails.price, 2), 2).ToString();
+                    txbTotal.Text = Math.Round(double.Parse(txbTotal.Text.Remove(txbTotal.Text.Length - 1)) - saleDetails.price, 2).ToString() + "€";
 
                     txbNameProduct.Text = lastitem.product.name;
                     txbQuantityProduct.Text = lastitem.quantity.ToString();
-                    txbPriceProduct.Text = Math.Round(lastitem.product.price, 2).ToString();
+                    txbPriceProduct.Text = lastitem.product.price.ToString() + "€";
+                    if (lastitem.product.iva != null )
+                    {
+                        txbIvaProduct.Text = lastitem.product.iva.ToString() + "%";
+                    }
                     if (lastitem.product.offer != null && lastitem.product.offer.discount != null)
                     {
-                        txbOfferProduct.Text = lastitem.product.offer.discount.ToString();
+                        txbOfferProduct.Text = lastitem.product.offer.discount.ToString() + "%";
                     }
-                    txbTotalProduct.Text = Math.Round(lastitem.quantity * lastitem.price, 2).ToString();
+                    txbTotalProduct.Text = lastitem.price + "€";
                 }
                 else
                 {
+                    btnDeleteList.IsEnabled = false;
                     txbNameProduct.Text = string.Empty;
                     txbQuantityProduct.Text = string.Empty;
                     txbPriceProduct.Text = string.Empty;
                     txbTotalProduct.Text = string.Empty;
+                    txbIvaProduct.Text = string.Empty;
                     txbOfferProduct.Text = string.Empty;
-                    txbTotal.Text = string.Empty;
+                    txbTotal.Text = "0€";
                 }
             }
         }
@@ -414,15 +430,21 @@ namespace tpv
 
             if (saleDetails != null)
             {
+                btnDeleteList.IsEnabled = true;
                 txbNameProduct.Text = saleDetails.product.name;
                 txbQuantityProduct.Text = saleDetails.quantity.ToString();
-                txbPriceProduct.Text = Math.Round(saleDetails.product.price, 2).ToString();
+                txbPriceProduct.Text = saleDetails.product.price + "€";
+                txbIvaProduct.Text = "0%";
                 txbOfferProduct.Text = string.Empty;
+                if (saleDetails.product.iva != null)
+                {
+                    txbIvaProduct.Text = saleDetails.product.iva.ToString() + "%";
+                }
                 if (saleDetails.product.offer != null && saleDetails.product.offer.discount != null)
                 {
-                    txbOfferProduct.Text = saleDetails.product.offer.discount.ToString();
+                    txbOfferProduct.Text = saleDetails.product.offer.discount.ToString() + "%";
                 }
-                txbTotalProduct.Text = Math.Round(saleDetails.quantity * saleDetails.price, 2).ToString();
+                txbTotalProduct.Text = saleDetails.price + "€";
                 if (userServ.GetPermissionsByUser(userLoggedIn.id_user).Find(r => r.id_permission == 1) != null)
                 {
                     btnContinue.IsEnabled = true;
