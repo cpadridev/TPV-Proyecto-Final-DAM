@@ -31,7 +31,6 @@ namespace tpv
         private List<category> categoriesList;
         private List<product> productsList;
         private MVSaleDetails mvSaleDetails;
-        private int idProductPressed;
 
         public MainWindow(tpvEntities tpvEntities, user user)
         {
@@ -45,7 +44,6 @@ namespace tpv
             this.AddHandler(Validation.ErrorEvent, new RoutedEventHandler(mvSaleDetails.OnErrorEvent));
             mvSaleDetails.btnSave = btnContinue;
             txtUsername.Text = userLoggedIn.username;
-            idProductPressed = 0;
             CheckPermissions();
             CreateNumbers();
             ShowCategories();
@@ -178,8 +176,8 @@ namespace tpv
                     Image img = new Image
                     {
                         Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(new Bitmap((Bitmap)new ImageConverter().ConvertFrom(productsList[i].image)).GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()),
-                        Height = 180,
-                        Width = 180
+                        Height = 164,
+                        Width = 164
                     };
 
                     Grid.SetRow(img, 1);
@@ -191,7 +189,7 @@ namespace tpv
                     Text = "Stock: " + productsList[i].quantity.ToString(),
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Thickness(0, 0, 10, 0)
+                    Margin = new Thickness(0, 10, 0, 10)
                 };
 
                 Grid.SetRow(tx2, 2);
@@ -200,9 +198,10 @@ namespace tpv
                 Button btnProduct = new Button
                 {
                     Content = grid,
-                    Height = 240,
-                    Width = 240,
-                    Margin = new Thickness(10)
+                    Height = 244,
+                    Width = 244,
+                    Margin = new Thickness(10),
+                    BorderThickness = new Thickness(25)
                 };
 
                 product product = productsList[i];
@@ -216,7 +215,7 @@ namespace tpv
                     saleDetail.quantity = 1;
                     saleDetail.price = product.price;
 
-                    if (product.offer != null)
+                    if (product.offer != null && product.offer.discount != null)
                     {
                         saleDetail.price = Math.Round(product.price - (double)(product.price * (product.offer.discount / 100)), 2);
                     }
@@ -237,15 +236,6 @@ namespace tpv
                         dataGridSaleDetails.Items.Refresh();
                         dataGridSaleDetails.SelectedItem = saleDetail;
                         dataGridSaleDetails.Focus();
-                    }
-                };
-
-                btnProduct.PreviewMouseDown += async (s, e) =>
-                {
-                    if (await TouchHold(btnProduct, TimeSpan.FromSeconds(1.5)))
-                    {
-                        txtProductSelected.Text = product.name;
-                        idProductPressed = product.id_product;
                     }
                 };
 
@@ -270,27 +260,6 @@ namespace tpv
             }
         }
 
-        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
-        {
-            // Dialog
-        }
-
-        private void btnModifyProduct_Click(object sender, RoutedEventArgs e)
-        {
-            if (idProductPressed != 0)
-            {
-                product product = prodServ.FindByID(idProductPressed);
-            }
-        }
-
-        private void btnDeleteProduct_Click(object sender, RoutedEventArgs e)
-        {
-            if (idProductPressed != 0)
-            {
-                product product = prodServ.FindByID(idProductPressed);
-            }
-        }
-
         private void btnDeleteList_Click(object sender, RoutedEventArgs e)
         {
             mvSaleDetails.newSaleDetails.Clear();
@@ -303,28 +272,6 @@ namespace tpv
             txbPriceProduct.Text = string.Empty;
             txbOfferProduct.Text = string.Empty;
             txbTotalProduct.Text = string.Empty;
-        }
-
-        private void btnContinue_Click(object sender, RoutedEventArgs e)
-        {
-            // Dialog
-        }
-
-        private void mniLogout_Click(object sender, RoutedEventArgs e)
-        {
-            LoginDialog dialog = new LoginDialog();
-            dialog.Show();
-            this.Close();
-        }
-
-        private void mniEditProfile_Click(object sender, RoutedEventArgs e)
-        {
-            // Dialog
-        }
-
-        private void mniViewProfile_Click(object sender, RoutedEventArgs e)
-        {
-            // Dialog
         }
 
         private void btnNumber_Click(object sender, RoutedEventArgs e)
@@ -437,16 +384,16 @@ namespace tpv
                     dataGridSaleDetails.SelectedItem = lastitem;
                     dataGridSaleDetails.ScrollIntoView(lastitem);
                     dataGridSaleDetails.Focus();
-                    txbTotal.Text = Math.Round(double.Parse(txbTotal.Text) - Math.Round(lastitem.quantity * lastitem.product.price, 2), 2).ToString();
+                    txbTotal.Text = Math.Round(double.Parse(txbTotal.Text) - Math.Round(saleDetails.quantity * saleDetails.price, 2), 2).ToString();
 
                     txbNameProduct.Text = lastitem.product.name;
                     txbQuantityProduct.Text = lastitem.quantity.ToString();
                     txbPriceProduct.Text = Math.Round(lastitem.product.price, 2).ToString();
-                    if (lastitem.product.offer != null)
+                    if (lastitem.product.offer != null && lastitem.product.offer.discount != null)
                     {
                         txbOfferProduct.Text = lastitem.product.offer.discount.ToString();
                     }
-                    txbTotalProduct.Text = Math.Round(lastitem.quantity * lastitem.product.price, 2).ToString();
+                    txbTotalProduct.Text = Math.Round(lastitem.quantity * lastitem.price, 2).ToString();
                 }
                 else
                 {
@@ -471,11 +418,11 @@ namespace tpv
                 txbQuantityProduct.Text = saleDetails.quantity.ToString();
                 txbPriceProduct.Text = Math.Round(saleDetails.product.price, 2).ToString();
                 txbOfferProduct.Text = string.Empty;
-                if (saleDetails.product.offer != null)
+                if (saleDetails.product.offer != null && saleDetails.product.offer.discount != null)
                 {
                     txbOfferProduct.Text = saleDetails.product.offer.discount.ToString();
                 }
-                txbTotalProduct.Text = Math.Round(saleDetails.quantity * saleDetails.product.price, 2).ToString();
+                txbTotalProduct.Text = Math.Round(saleDetails.quantity * saleDetails.price, 2).ToString();
                 if (userServ.GetPermissionsByUser(userLoggedIn.id_user).Find(r => r.id_permission == 1) != null)
                 {
                     btnContinue.IsEnabled = true;
@@ -483,32 +430,41 @@ namespace tpv
             }
         }
 
-        private Task<bool> TouchHold(FrameworkElement element, TimeSpan duration)
+        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
-            DispatcherTimer timer = new DispatcherTimer();
-            TaskCompletionSource<bool> task = new TaskCompletionSource<bool>();
-            timer.Interval = duration;
+            // Dialog
+        }
 
-            MouseButtonEventHandler touchUpHandler = delegate
-            {
-                timer.Stop();
-                if (task.Task.Status == TaskStatus.Running)
-                {
-                    task.SetResult(false);
-                }
-            };
+        private void btnModifyProduct_Click(object sender, RoutedEventArgs e)
+        {
+            // Dialog
+        }
 
-            element.PreviewMouseUp += touchUpHandler;
+        private void btnDeleteProduct_Click(object sender, RoutedEventArgs e)
+        {
+            // Dialog
+        }
 
-            timer.Tick += delegate
-            {
-                element.PreviewMouseUp -= touchUpHandler;
-                timer.Stop();
-                task.SetResult(true);
-            };
+        private void btnContinue_Click(object sender, RoutedEventArgs e)
+        {
+            // Dialog
+        }
 
-            timer.Start();
-            return task.Task;
+        private void mniLogout_Click(object sender, RoutedEventArgs e)
+        {
+            LoginDialog dialog = new LoginDialog();
+            dialog.Show();
+            this.Close();
+        }
+
+        private void mniEditProfile_Click(object sender, RoutedEventArgs e)
+        {
+            // Dialog
+        }
+
+        private void mniViewProfile_Click(object sender, RoutedEventArgs e)
+        {
+            // Dialog
         }
 
         private void mniReports_Click(object sender, RoutedEventArgs e)

@@ -48,7 +48,7 @@ INSERT INTO `tpv`.`permission` (`id_permission`, `description`) VALUES ('9', 'Ed
 -- -----------------------------------------------------
 -- Insert data `tpv`.`offer`
 -- -----------------------------------------------------
-INSERT INTO `tpv`.`offer` (`id_offer`, `name`, `period`, `file`) VALUES ('1', 'Publicidad', '2022-01-31', ?);
+INSERT INTO `tpv`.`offer` (`id_offer`, `name`, `period`) VALUES ('1', 'Publicidad', '2022-01-31');
 INSERT INTO `tpv`.`offer` (`id_offer`, `name`, `description`, `period`, `discount`) VALUES ('2', 'Descuento', 'Bebidas', '2022-01-31', '10');
 
 
@@ -59,7 +59,7 @@ INSERT INTO `tpv`.`category` (`id_category`, `name`) VALUES ('1', 'Ofertas');
 INSERT INTO `tpv`.`category` (`id_category`, `name`) VALUES ('2', 'Bebidas');
 INSERT INTO `tpv`.`category` (`id_category`, `name`) VALUES ('3', 'Helados');
 INSERT INTO `tpv`.`category` (`id_category`, `name`) VALUES ('4', 'Golosinas');
-INSERT INTO `tpv`.`category` (`id_category`, `name`) VALUES ('5', 'Patatas');
+INSERT INTO `tpv`.`category` (`id_category`, `name`) VALUES ('5', 'Snacks');
 INSERT INTO `tpv`.`category` (`id_category`, `name`) VALUES ('6', 'Juguetes');
 INSERT INTO `tpv`.`category` (`id_category`, `name`) VALUES ('7', 'Prensa');
 INSERT INTO `tpv`.`category` (`id_category`, `name`) VALUES ('8', 'Cromos');
