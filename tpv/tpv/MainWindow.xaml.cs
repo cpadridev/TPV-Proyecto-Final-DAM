@@ -166,7 +166,8 @@ namespace tpv
                 {
                     Text = productsList[i].name,
                     HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(0, 10, 0, 0)
                 };
 
                 Grid.SetRow(tx, 0);
@@ -177,8 +178,8 @@ namespace tpv
                     Image img = new Image
                     {
                         Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(new Bitmap((Bitmap)new ImageConverter().ConvertFrom(productsList[i].image)).GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions()),
-                        Height = 130,
-                        Width = 130
+                        Height = 180,
+                        Width = 180
                     };
 
                     Grid.SetRow(img, 1);
@@ -189,7 +190,8 @@ namespace tpv
                 {
                     Text = "Stock: " + productsList[i].quantity.ToString(),
                     HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Margin = new Thickness(0, 0, 10, 0)
                 };
 
                 Grid.SetRow(tx2, 2);
@@ -198,8 +200,8 @@ namespace tpv
                 Button btnProduct = new Button
                 {
                     Content = grid,
-                    Height = 175,
-                    Width = 175,
+                    Height = 240,
+                    Width = 240,
                     Margin = new Thickness(10)
                 };
 
@@ -210,12 +212,13 @@ namespace tpv
                     sale_details saleDetail = new sale_details();
 
                     saleDetail.product = product;
+                    saleDetail.product.price = Math.Round(product.price, 2);
                     saleDetail.quantity = 1;
                     saleDetail.price = product.price;
 
                     if (product.offer != null)
                     {
-                        saleDetail.price = product.price - (double)(product.price * (product.offer.discount / 100));
+                        saleDetail.price = Math.Round(product.price - (double)(product.price * (product.offer.discount / 100)), 2);
                     }
 
                     if (!mvSaleDetails.newSaleDetails.Any(d => d.product == saleDetail.product))
@@ -224,11 +227,11 @@ namespace tpv
 
                         if (!string.IsNullOrEmpty(txbTotal.Text))
                         {
-                            txbTotal.Text = ((double.Parse(txbTotal.Text)) + saleDetail.price).ToString();
+                            txbTotal.Text = Math.Round(double.Parse(txbTotal.Text) + saleDetail.price, 2).ToString();
                         }
                         else
                         {
-                            txbTotal.Text = saleDetail.price.ToString();
+                            txbTotal.Text = Math.Round(saleDetail.price, 2).ToString();
                         }
 
                         dataGridSaleDetails.Items.Refresh();
@@ -367,15 +370,15 @@ namespace tpv
         {
             if ((sale_details)dataGridSaleDetails.SelectedItem != null)
             {
-                txbQuantityProduct.Text = (double.Parse(txbQuantityProduct.Text) + 1).ToString();
+                txbQuantityProduct.Text = (int.Parse(txbQuantityProduct.Text) + 1).ToString();
             }
         }
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
-            if ((sale_details)dataGridSaleDetails.SelectedItem != null && double.Parse(txbQuantityProduct.Text) > 0)
+            if ((sale_details)dataGridSaleDetails.SelectedItem != null && int.Parse(txbQuantityProduct.Text) > 0)
             {
-                txbQuantityProduct.Text = (double.Parse(txbQuantityProduct.Text) - 1).ToString();
+                txbQuantityProduct.Text = (int.Parse(txbQuantityProduct.Text) - 1).ToString();
             }
         }
 
@@ -383,7 +386,7 @@ namespace tpv
         {
             sale_details saleDetails = (sale_details)dataGridSaleDetails.SelectedItem;
 
-            if (saleDetails != null && saleDetails.quantity != double.Parse(txbQuantityProduct.Text))
+            if (saleDetails != null && saleDetails.quantity != int.Parse(txbQuantityProduct.Text))
             {
                 double pastPrice = saleDetails.price;
 
@@ -400,7 +403,7 @@ namespace tpv
                     txbQuantityProduct.Text = saleDetails.product.quantity.ToString();
                 }
 
-                saleDetails.price = saleDetails.quantity * saleDetails.product.price;
+                saleDetails.price = Math.Round(saleDetails.quantity * saleDetails.product.price, 2);
 
                 sale_details sale = mvSaleDetails.newSaleDetails.FirstOrDefault(s => s == saleDetails);
 
@@ -414,8 +417,8 @@ namespace tpv
                 dataGridSaleDetails.Items.Refresh();
                 dataGridSaleDetails.SelectedItem = saleDetails;
 
-                txbTotalProduct.Text = saleDetails.price.ToString();
-                txbTotal.Text = (double.Parse(txbTotal.Text) - pastPrice + (saleDetails.quantity * saleDetails.product.price)).ToString();
+                txbTotalProduct.Text = Math.Round(saleDetails.price, 2).ToString();
+                txbTotal.Text = Math.Round(double.Parse(txbTotal.Text) - pastPrice + (saleDetails.quantity * saleDetails.product.price), 2).ToString();
             }
         }
 
@@ -434,16 +437,16 @@ namespace tpv
                     dataGridSaleDetails.SelectedItem = lastitem;
                     dataGridSaleDetails.ScrollIntoView(lastitem);
                     dataGridSaleDetails.Focus();
-                    txbTotal.Text = (double.Parse(txbTotal.Text) - (lastitem.quantity * lastitem.product.price)).ToString();
+                    txbTotal.Text = Math.Round(double.Parse(txbTotal.Text) - Math.Round(lastitem.quantity * lastitem.product.price, 2), 2).ToString();
 
                     txbNameProduct.Text = lastitem.product.name;
                     txbQuantityProduct.Text = lastitem.quantity.ToString();
-                    txbPriceProduct.Text = lastitem.product.price.ToString();
+                    txbPriceProduct.Text = Math.Round(lastitem.product.price, 2).ToString();
                     if (lastitem.product.offer != null)
                     {
                         txbOfferProduct.Text = lastitem.product.offer.discount.ToString();
                     }
-                    txbTotalProduct.Text = (lastitem.quantity * lastitem.product.price).ToString();
+                    txbTotalProduct.Text = Math.Round(lastitem.quantity * lastitem.product.price, 2).ToString();
                 }
                 else
                 {
@@ -466,13 +469,13 @@ namespace tpv
             {
                 txbNameProduct.Text = saleDetails.product.name;
                 txbQuantityProduct.Text = saleDetails.quantity.ToString();
-                txbPriceProduct.Text = saleDetails.product.price.ToString();
+                txbPriceProduct.Text = Math.Round(saleDetails.product.price, 2).ToString();
                 txbOfferProduct.Text = string.Empty;
                 if (saleDetails.product.offer != null)
                 {
                     txbOfferProduct.Text = saleDetails.product.offer.discount.ToString();
                 }
-                txbTotalProduct.Text = (saleDetails.quantity * saleDetails.product.price).ToString();
+                txbTotalProduct.Text = Math.Round(saleDetails.quantity * saleDetails.product.price, 2).ToString();
                 if (userServ.GetPermissionsByUser(userLoggedIn.id_user).Find(r => r.id_permission == 1) != null)
                 {
                     btnContinue.IsEnabled = true;
