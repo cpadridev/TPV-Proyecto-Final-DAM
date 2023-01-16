@@ -83,6 +83,7 @@ INSERT INTO `tpv`.`product` (`id_product`, `name`, `price`, `quantity`, `id_cate
 INSERT INTO `tpv`.`product` (`id_product`, `name`, `price`, `quantity`, `id_category`, `id_location`) VALUES ('2', 'Lenguas', '0.05', '1000', '4', '1');
 INSERT INTO `tpv`.`product` (`id_product`, `name`, `price`, `quantity`, `id_category`, `id_location`) VALUES ('3', 'Sobres Copa Mundial 2022', '1', '50', '8', '1');
 
+
 -- -----------------------------------------------------
 -- Insert data `tpv`.`sale_details`
 -- -----------------------------------------------------

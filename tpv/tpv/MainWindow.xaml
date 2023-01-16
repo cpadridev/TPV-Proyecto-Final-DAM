@@ -93,8 +93,8 @@
                         <DataGridTextColumn Header="Producto" Width="150" Binding="{Binding product.name}" />
                         <DataGridTextColumn Header="Cantidad" Width="120" Binding="{Binding quantity}" />
                         <DataGridTextColumn Header="Precio" Width="120" Binding="{Binding product.price}" />
-                        <DataGridTextColumn Header="IVA" Width="120" Binding="{Binding product.iva}" />
                         <DataGridTextColumn Header="Oferta" Width="120" Binding="{Binding product.offer.discount}" />
+                        <DataGridTextColumn Header="IVA" Width="120" Binding="{Binding product.iva}" />
                         <DataGridTextColumn Header="Total" Width="120" Binding="{Binding price}" />
                     </DataGrid.Columns>
                 </DataGrid>
@@ -121,12 +121,12 @@
                             <TextBlock Width="40" TextAlignment="Center" VerticalAlignment="Center" Margin="10, 0, 0, 0" x:Name="txbPriceProduct" />
                         </StackPanel>
                         <StackPanel Grid.Column="3" Margin="0, 0, 15, 0"  Orientation="Horizontal">
-                            <TextBlock Text="IVA:" VerticalAlignment="Center" />
-                            <TextBlock Width="40" TextAlignment="Center" VerticalAlignment="Center" Margin="10, 0, 0, 0" x:Name="txbIvaProduct" />
-                        </StackPanel>
-                        <StackPanel Grid.Column="4" Margin="0, 0, 15, 0"  Orientation="Horizontal">
                             <TextBlock Text="Oferta:" VerticalAlignment="Center" />
                             <TextBlock Width="40" TextAlignment="Center" VerticalAlignment="Center" Margin="10, 0, 0, 0" x:Name="txbOfferProduct" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="4" Margin="0, 0, 15, 0"  Orientation="Horizontal">
+                            <TextBlock Text="IVA:" VerticalAlignment="Center" />
+                            <TextBlock Width="40" TextAlignment="Center" VerticalAlignment="Center" Margin="10, 0, 0, 0" x:Name="txbIvaProduct" />
                         </StackPanel>
                         <StackPanel Grid.Column="5" Orientation="Horizontal">
                             <TextBlock Text="Total:" VerticalAlignment="Center" />
